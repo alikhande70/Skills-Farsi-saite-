@@ -10,14 +10,14 @@ Project: ____ · Date: ____ · Build/commit: ____ · Launch owner: ____ · Rollb
 - [ ] AI-drafted Persian copy reviewed by a native editor (legal/medical/financial/brand-critical text first) ·
 
 ## Persian correctness (G-FA)
-- [ ] ★ `lang="fa" dir="rtl"`; `rtl-smells.mjs` has no errors; physical-CSS warnings resolved or justified; `page-audit.mjs` (foreign hosts blocked) has no errors on every template ·
+- [ ] ★ `lang="fa" dir="rtl"`; `rtl-smells.mjs` verdict PASS or CONDITIONAL with every warning resolved or justified; `page-audit.mjs` (foreign hosts blocked) verdict PASS on every template, or its listed limits accepted by a named owner ·
 - [ ] ★ Digits (3 scripts), phone, national code, name, ی/ک and ZWNJ checks pass in every form ·
 - [ ] Search acceptance table passes · Dates/time (Jalali, UTC storage, Saturday week) · Money formatter and units ·
 - [ ] PDFs/emails/SMS/CSV with real Persian content inspected ·
 
 ## Security (G-SEC)
 - [ ] ★ HTTPS, security headers verified; CSP enforced (or report-only with zero own violations) ·
-- [ ] ★ Authorization matrix test, injection/SSRF/CSRF suites · `security-smoke.mjs` on staging: no errors ·
+- [ ] ★ Authorization matrix test, injection/SSRF/CSRF suites · `security-smoke.mjs` verdict PASS on the HTTPS staging URL (not CONDITIONAL/INCOMPLETE) ·
 - [ ] ★ Secrets scan clean; no secrets in client bundle; dependency audit reviewed ·
 - [ ] Admin MFA on; admin not publicly exposed; debug off; no exposed `.git`/`.env`/backups ·
 - [ ] Rate limits and SMS/email spend caps tested; alerts route to a human ·

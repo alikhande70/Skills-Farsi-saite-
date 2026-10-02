@@ -5,7 +5,9 @@
 // Note: Persian letters appear reversed in the visual string because it is listed left to right; look at
 // digits, signs and punctuation placement.
 // Usage: node bidi-order.mjs <file.html|url> [selector=.row] [--json]
+// Exit codes: 0 measured, 2 could not run (missing file, browser unavailable), 3 INCOMPLETE (selector matched nothing).
 import { createRequire } from 'node:module';
+import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -37,7 +39,12 @@ export async function visualOrder(target, selector = '.row', { width = 360 } = {
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
   if (!args[0]) { console.error('Usage: node bidi-order.mjs <file.html|url> [selector=.row] [--json]'); process.exit(2); }
-  const rows = await visualOrder(args[0], args[1] ?? '.row');
-  if (process.argv.includes('--json')) console.log(JSON.stringify(rows, null, 2));
-  else for (const r of rows) console.log(`${r.id}\n   logical   : ${r.logical}\n   visual L→R: ${r.visualLTR.join('  ⏎  ')}`);
+  try {
+    if (!/^(https?|file):/i.test(args[0]) && !existsSync(args[0])) throw new Error(`file not found: ${args[0]}`);
+    const rows = await visualOrder(args[0], args[1] ?? '.row');
+    // Zero matches means nothing was measured: say so and exit 3 instead of printing nothing and exiting 0.
+    if (rows.length === 0) { console.error(`INCOMPLETE: selector "${args[1] ?? '.row'}" matched no element in ${args[0]}. Nothing was measured.`); process.exit(3); }
+    if (process.argv.includes('--json')) console.log(JSON.stringify(rows, null, 2));
+    else for (const r of rows) console.log(`${r.id}\n   logical   : ${r.logical}\n   visual L→R: ${r.visualLTR.join('  ⏎  ')}`);
+  } catch (e) { console.error(`CANNOT RUN: ${e.message}. Nothing was verified.`); process.exit(2); }
 }

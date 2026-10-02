@@ -27,3 +27,12 @@ test('short hex expands; invalid input throws', () => {
   assert.deepEqual(parseColor('#abc'), [170, 187, 204]);
   assert.throws(() => parseColor('rgba(0,0,0,.5)'));
 });
+
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+const CLI = fileURLToPath(new URL('./contrast.mjs', import.meta.url));
+test('REGRESSION: an unreadable color is exit 2 (could not run), distinct from exit 1 (below AA)', () => {
+  assert.equal(spawnSync(process.execPath, [CLI, 'rgba(0,0,0,.5)', '#fff']).status, 2);
+  assert.equal(spawnSync(process.execPath, [CLI, '#999', '#fff']).status, 1);
+  assert.equal(spawnSync(process.execPath, [CLI, '#000', '#fff']).status, 0);
+});

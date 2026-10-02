@@ -7,13 +7,16 @@
 //
 // DEFAULT MODE BLOCKS EVERY FOREIGN http(s) HOST. This is the "I-2 test" from references/iran-context.md:
 // critical content must still render when only your own origin is reachable.
-// Exit code 1 if any finding has severity "error". Findings are evidence for gate files, not a verdict:
-// automation catches only part of what a human review catches (references/accessibility.md §7).
+// Result model (scripts/verdict.mjs): every check is pass | fail | warn | info | incomplete | skipped | not-applicable and the
+// run is PASS | CONDITIONAL | FAIL | INCOMPLETE. Exit codes: 0 PASS/CONDITIONAL, 1 FAIL, 2 could not run, 3 INCOMPLETE.
+// A check that was switched off (--allow-foreign, --allow-placeholders) or could not measure (no LCP entry) is listed as a
+// limit; it can never produce PASS. Automation catches only part of what a human review catches (references/accessibility.md §7).
 
 import { createRequire } from 'node:module';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { createLedger, buildReport, renderText, exitCodeFor } from './verdict.mjs';
 
 export const CHECKS = {
   'PA-001': 'html lang (G-FA 1)', 'PA-002': 'html dir (G-FA 1)', 'PA-003': 'horizontal overflow (G-FA 8, EC-041)',
@@ -34,14 +37,16 @@ async function loadPlaywright() {
   }
 }
 
-export async function runAudit(target, opts = {}) {
+export async function auditReport(target, opts = {}) {
   const { viewports = [320, 360, 768], allowForeign = false, allowPlaceholders = false, throttle = false, lang = 'fa' } = opts;
   const url = /^(https?|file):/i.test(target) ? target : pathToFileURL(resolve(target)).href;
   if (url.startsWith('file:') && !existsSync(new URL(url))) throw new Error(`File not found: ${target}`);
   const { chromium } = await loadPlaywright();
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
-  const findings = [];
-  const add = (id, severity, msg, detail) => findings.push({ id, severity, msg, ...(detail ? { detail } : {}) });
+  const startedAt = new Date().toISOString();
+  const L = createLedger();
+  const ran = new Set(); // checks that were actually evaluated; each ends as a pass unless a problem was recorded
+  const add = (id, severity, msg, detail) => L.add(id, severity === 'error' ? 'fail' : severity, msg, detail ? { detail } : {});
   try {
     const context = await browser.newContext({ viewport: { width: viewports[0], height: 800 }, deviceScaleFactor: 1, userAgent: undefined });
     const page = await context.newPage();
@@ -65,7 +70,7 @@ export async function runAudit(target, opts = {}) {
       try {
         new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
         new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
-      } catch { /* unsupported */ }
+      } catch { /* observers unsupported: PA-016 then reports INCOMPLETE instead of 0 ms */ }
     });
     if (throttle) {
       const cdp = await context.newCDPSession(page);
@@ -112,6 +117,7 @@ export async function runAudit(target, opts = {}) {
       // form controls
       out.unlabeled = [...document.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]):not([type=reset]), select, textarea')]
         .filter((e) => !(e.labels && e.labels.length) && !e.getAttribute('aria-label') && !e.getAttribute('aria-labelledby') && !e.getAttribute('title')).map(sel).slice(0, 5);
+      out.formControls = document.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]):not([type=reset]), select, textarea').length;
       // fonts
       out.fontFamily = getComputedStyle(document.body).fontFamily;
       out.fontsLoaded = [...document.fonts].filter((f) => f.status === 'loaded').map((f) => `${f.family} ${f.weight}`);
@@ -123,6 +129,8 @@ export async function runAudit(target, opts = {}) {
     if (!dom.lang) add('PA-001', 'error', '<html> has no lang attribute');
     else if (lang && !dom.lang.toLowerCase().startsWith(lang)) add('PA-001', 'error', `<html lang="${dom.lang}"> but expected "${lang}"`);
     if (lang === 'fa' && dom.dir !== 'rtl') add('PA-002', 'error', dom.dir ? `<html dir="${dom.dir}"> must be "rtl" for Persian pages` : '<html> has no dir attribute; Persian pages need dir="rtl"');
+
+    ran.add('PA-001'); ran.add('PA-002');
 
     // PA-003 / PA-004 per viewport
     for (const width of viewports) {
@@ -144,18 +152,27 @@ export async function runAudit(target, opts = {}) {
         }
         return { overflow, offenders, small: small.slice(0, 5), mediumCount: medium.length };
       });
+      ran.add('PA-003'); ran.add('PA-004');
       if (r.overflow) add('PA-003', 'error', `horizontal overflow at ${width}px`, r.offenders.join(', '));
       if (r.small.length) add('PA-004', 'error', `touch targets under 24x24 CSS px at ${width}px`, r.small.join('; '));
       else if (r.mediumCount && width === viewports[0]) add('PA-004', 'info', `${r.mediumCount} target(s) between 24 and 44 px at ${width}px (44 px recommended)`);
     }
 
+    ran.add('PA-005'); ran.add('PA-006');
     if (dom.imgNoDims.length) add('PA-005', 'warn', 'images without width/height or aspect-ratio (CLS risk)', dom.imgNoDims.join(', '));
     if (dom.imgNoAlt.length) add('PA-005', 'error', 'images without alt attribute', dom.imgNoAlt.join(', '));
-    if (foreign.size) add('PA-006', allowForeign ? 'warn' : 'warn', `foreign hosts requested: ${[...foreign].join(', ')}`, 'Critical flows must not depend on them (I-2); self-host or defer');
+    if (foreign.size) add('PA-006', 'warn', `foreign hosts requested: ${[...foreign].join(', ')}`, 'Critical flows must not depend on them (I-2); self-host or defer');
+    if (allowForeign) L.add('PA-007', 'skipped', 'foreign-host block test not run (--allow-foreign): dependence of the critical path on foreign hosts is unverified');
+    else ran.add('PA-007');
+    ran.add('PA-008'); ran.add('PA-009'); ran.add('PA-010');
     if (!allowForeign && (dom.textLength < 20 || pageErrors.length)) add('PA-007', 'error', 'page is empty, or an uncaught error occurred, while foreign hosts were blocked (a blocked script may be the cause)', pageErrors.slice(0, 3).join(' | '));
     if (dom.letter.length) add('PA-008', 'error', 'non-zero letter-spacing on Persian text', dom.letter.join(', '));
     if (dom.italic.length) add('PA-009', 'warn', 'italic/oblique on Persian text', dom.italic.join(', '));
     if (dom.latinPunct) add('PA-010', 'warn', `${dom.latinPunct} Latin punctuation mark(s) (? , ;) right after Persian letters; use ؟ ، ؛`);
+    if (allowPlaceholders) L.add('PA-011', 'skipped', 'placeholder-content check not run (--allow-placeholders): template/sample content is not release-ready');
+    else ran.add('PA-011');
+    ran.add('PA-012'); ran.add('PA-014'); ran.add('PA-017'); ran.add('PA-018');
+    if (dom.formControls === 0) L.add('PA-013', 'not-applicable', 'no form controls on this page'); else ran.add('PA-013');
     if (dom.placeholderHit && !allowPlaceholders) add('PA-011', 'error', `placeholder-like content found: "${dom.placeholderHit}"`);
     if (dom.h1 !== 1) add('PA-012', 'warn', `expected exactly one h1, found ${dom.h1}`);
     if (dom.skips.length) add('PA-012', 'warn', 'heading levels skipped', dom.skips.join(', '));
@@ -164,13 +181,23 @@ export async function runAudit(target, opts = {}) {
     if (!dom.description.trim()) add('PA-014', 'warn', 'missing meta description');
     if (!dom.canonical) add('PA-014', 'warn', 'missing canonical link');
     add('PA-015', 'info', `body font-family: ${dom.fontFamily}; loaded faces: ${dom.fontsLoaded.join(', ') || 'none (fallback fonts in use: check rendering with the web font blocked)'}`);
-    add('PA-016', dom.cls > 0.1 || dom.lcp > 2500 ? 'warn' : 'info', `lab LCP ${Math.round(dom.lcp)} ms, CLS ${dom.cls.toFixed(3)}${throttle ? ' (throttled)' : ' (unthrottled)'}; field data decides (E-001)`);
+    if (!(dom.lcp > 0)) add('PA-016', 'incomplete', 'no Largest Contentful Paint entry was observed (nothing painted, or PerformanceObserver unsupported): lab performance is NOT measured');
+    else add('PA-016', dom.cls > 0.1 || dom.lcp > 2500 ? 'warn' : 'info', `lab LCP ${Math.round(dom.lcp)} ms, CLS ${dom.cls.toFixed(3)}${throttle ? ' (throttled)' : ' (unthrottled)'}; field data decides (E-001)`);
     if (/user-scalable\s*=\s*(no|0)|maximum-scale\s*=\s*1(\.0)?\b/i.test(dom.viewportMeta)) add('PA-017', 'error', `viewport meta blocks zoom: "${dom.viewportMeta}"`);
     if (consoleErrors.length || pageErrors.length) add('PA-018', 'error', `${consoleErrors.length} console error(s), ${pageErrors.length} uncaught error(s)`, [...consoleErrors, ...pageErrors].slice(0, 3).join(' | '));
   } finally {
     await browser.close();
   }
-  return findings;
+  const problem = new Set(['fail', 'warn', 'incomplete', 'unknown', 'skipped']);
+  for (const id of ran) if (!L.checks.some((c) => c.id === id && problem.has(c.status))) L.add(id, 'pass', CHECKS[id]);
+  return buildReport('page-audit', { version: '0.2', target: url, mode: allowForeign ? 'foreign hosts allowed' : 'foreign hosts BLOCKED', viewports, throttle, startedAt }, L.checks);
+}
+
+/** Back-compat: findings = every check that is not a plain pass / not-applicable. */
+export async function runAudit(target, opts) {
+  const sev = { fail: 'error', warn: 'warn', info: 'info', incomplete: 'incomplete', unknown: 'incomplete', skipped: 'skipped' };
+  const report = await auditReport(target, opts);
+  return report.checks.filter((c) => sev[c.status]).map((c) => ({ id: c.id, severity: sev[c.status], msg: c.msg, ...(c.detail ? { detail: c.detail } : {}) }));
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
@@ -180,16 +207,11 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const val = (n) => args.find((a) => a.startsWith(`--${n}=`))?.split('=')[1];
   if (!target) { console.error('Usage: node page-audit.mjs <url|file.html> [--viewports=320,360,768] [--allow-foreign] [--allow-placeholders] [--throttle] [--lang=fa] [--json]'); process.exit(2); }
   try {
-    const findings = await runAudit(target, {
+    const report = await auditReport(target, {
       viewports: val('viewports')?.split(',').map(Number), allowForeign: flag('allow-foreign'), allowPlaceholders: flag('allow-placeholders'),
       throttle: flag('throttle'), lang: val('lang') ?? 'fa',
     });
-    if (flag('json')) console.log(JSON.stringify(findings, null, 2));
-    else {
-      for (const f of findings) console.log(`${f.severity.toUpperCase().padEnd(5)} ${f.id}  ${f.msg}${f.detail ? `\n         -> ${f.detail}` : ''}`);
-      const n = (s) => findings.filter((f) => f.severity === s).length;
-      console.log(`\n${n('error')} error, ${n('warn')} warn, ${n('info')} info  (mode: ${flag('allow-foreign') ? 'foreign hosts allowed' : 'foreign hosts BLOCKED'})`);
-    }
-    process.exit(findings.some((f) => f.severity === 'error') ? 1 : 0);
-  } catch (e) { console.error(e.message); process.exit(2); }
+    console.log(flag('json') ? JSON.stringify(report, null, 2) : `${renderText(report)}\nMode: ${report.mode}`);
+    process.exit(exitCodeFor(report.verdict));
+  } catch (e) { console.error(`CANNOT RUN: ${e.message}. Nothing was verified.`); process.exit(2); }
 }

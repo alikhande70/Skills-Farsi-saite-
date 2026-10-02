@@ -1,5 +1,7 @@
 # Validation log
 
+**Everything in this file is Builder-side validation: scenarios and checks designed and run by the same agent that wrote the skill. It is not an independent audit, and the scenarios are not "unseen".** Independent evaluation is stage 4 of `ROADMAP.md`.
+
 The skill is not considered valid because its author read it. Each run exercises it on hypothetical projects and, wherever possible, **executes** something (tools, fixtures, a browser). Findings become fixes or open questions. Method for a walk-through: follow `SKILL.md` literally for the scenario; record (a) which files answered, (b) whether each decision came out **determinate** (two agents with the same inputs would pick the same option) or left to taste, (c) what was missing or contradictory, (d) the fix.
 
 ## Coverage matrix (update every run)

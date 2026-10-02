@@ -1,11 +1,11 @@
 # Open questions (prioritized)
 
 Each item: what we do not know · which decision it affects · how to research it (prefer primary sources) · status.
-Priority = (cost of being wrong) × (how often the skill relies on it). Pick the top unresolved item for the next cycle unless a stale-evidence warning or a Red Team finding outranks it. Close items by moving the answer into `persian-website-builder/references/evidence-register.md` (with date and source) and striking the item here.
+Priority = (cost of being wrong) × (how often the skill relies on it). Close items by moving the answer into `persian-website-builder/references/evidence-register.md` (with date and source) and striking the item here.
 
-## NEXT RESEARCH TARGET (set at the end of run 1)
+## Ordering
 
-**OQ-02: Iranian payment gateway documentation, from the official docs of at least three providers.** `iran-context.md` is M1 and its payment guidance (I-3, I-4, E-027) rests on one provider's docs seen only through a search snippet (the docs host returned HTTP 503 during run 1). Try again, and try other providers; record amount units, status codes, verify/idempotency behaviour, sandbox availability, recurring/direct-debit support, refund APIs, callback authentication. If the sandbox cannot reach the docs, say so in the register and keep ASSUMPTION labels.
+The **next action** is chosen in `ROADMAP.md` (single source of truth), not here. Research items below are pulled in only when the current stage needs them (for example OQ-02 when the Foundry needs a payment-related resource, or OQ-01 when legal/trust content is written). Close an item by moving the answer into `persian-website-builder/references/evidence-register.md` (dated, sourced) and striking it here.
 
 ## High priority
 

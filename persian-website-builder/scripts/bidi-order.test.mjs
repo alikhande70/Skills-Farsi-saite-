@@ -31,3 +31,27 @@ test('E-018: bidi behaviour of phone numbers, signs, percent, dir=auto', { timeo
   // Not hazards in this simple case: sentence-final punctuation sits at the line end (left in RTL).
   assert.ok(v('trailing-english-punct').startsWith('!Samsung Galaxy S24'), v('trailing-english-punct'));
 });
+
+// Hidden-failure regression (run 2): a missing file crashed with exit 1 and a selector that matched nothing printed
+// nothing and exited 0 -- both read as "no problems found".
+import { spawn } from 'node:child_process';
+const CLI = fileURLToPath(new URL('./bidi-order.mjs', import.meta.url));
+const cli = (args) => new Promise((resolve) => {
+  const c = spawn(process.execPath, [CLI, ...args], { stdio: ['ignore', 'pipe', 'pipe'] });
+  let out = ''; let err = '';
+  c.stdout.on('data', (d) => (out += d)); c.stderr.on('data', (d) => (err += d));
+  c.on('close', (code) => resolve({ code, out, err }));
+});
+
+test('REGRESSION: a missing file is "could not run" (exit 2)', async () => {
+  const r = await cli(['/nonexistent/definitely-missing.html']);
+  assert.equal(r.code, 2, `${r.out}${r.err}`);
+  assert.match(r.err, /CANNOT RUN/);
+});
+
+test('REGRESSION: a selector that matches nothing is INCOMPLETE (exit 3), not silent success', { timeout: 60000 }, async (t) => {
+  const r = await cli([FIXTURE, '.no-such-class']);
+  if (/Cannot find module|Executable doesn't exist/.test(r.err)) return t.skip('browser unavailable');
+  assert.equal(r.code, 3, `${r.out}${r.err}`);
+  assert.match(r.err, /INCOMPLETE/);
+});

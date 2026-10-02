@@ -99,7 +99,7 @@ Use the gateway's **hosted page**: card data never touches your servers. Server-
 
 ## 16. G-SEC: security gate (before real users or money)
 
-Executable evidence: `node scripts/security-smoke.mjs <staging-url>` (headers, cookie flags, exposed paths, CORS reflection; run only against systems you own) and the project's own authorization/injection tests. Attach the outputs to `docs/gates/G5.md`. Automation is a smoke test; it never replaces the checks below.
+Executable evidence: `node scripts/security-smoke.mjs <staging-url>` (headers, cookie flags, exposed paths, CORS reflection; run only against systems you own) and the project's own authorization/injection tests. Attach the output to `docs/gates/G5.md`. The G-SEC criterion needs verdict **PASS on the HTTPS staging URL** (CONDITIONAL = http-only/limited scope, INCOMPLETE = a probe could not run: neither counts as verified). Automation is a smoke test; it never replaces the checks below.
 
 - [ ] Threat model exists; top risks have controls and tests.
 - [ ] Authorization matrix test passes; SSRF and injection payload suites pass; CSRF test passes.

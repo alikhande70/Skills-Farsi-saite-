@@ -70,4 +70,6 @@ What evidence would convince a skeptical reviewer? Which criteria passed because
 | Headers, cookies, exposed paths, CORS | `node scripts/security-smoke.mjs <staging-url>` | Authorized targets only |
 | Input helpers behave | `node --test scripts/*.test.mjs` | Copy the helpers you ship and keep their tests |
 
+**How to read a tool result at a gate:** PASS = every executed check passed and none was skipped. CONDITIONAL = attach the listed limits to the gate record; the release floor needs a named human to accept each limit, or a re-run that removes it (e.g. `security-smoke` on the **HTTPS staging URL**, not localhost). INCOMPLETE or exit code 2/3 = no evidence: the criterion stays open. A skipped test is not a passed test.
+
 A tool run proves only what it checks. Everything it cannot check (keyboard flow, screen readers, copy quality, business logic, payment behaviour) still needs a human or a project-specific test.

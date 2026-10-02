@@ -37,7 +37,7 @@ For an AI coding agent working alone or alongside people. The agent's value is s
 5. **Record**: ADR if a decision changed, assumptions register if you assumed something, changelog/handoff notes.
 6. Repeat. Stop at gates and check their lists.
 
-**Evidence of done** = commands executed with their results, test names, screenshots or measurements, and a list of **what was not verified and why**. If the environment cannot run a browser, network, or vendor sandbox, say so explicitly: "implemented, not verified".
+**Evidence of done** = commands executed with their results, test names, screenshots or measurements, and a list of **what was not verified and why**. If the environment cannot run a browser, network, or vendor sandbox, say so explicitly: "implemented, not verified". Report test results as pass / fail / skipped / incomplete, never as one "passed" number: a skipped test, a CONDITIONAL verdict or an INCOMPLETE tool run is an open item, and a result is only valid for the exact content and environment it ran on.
 
 ## 4. Auditing AI-generated code (use on every diff)
 

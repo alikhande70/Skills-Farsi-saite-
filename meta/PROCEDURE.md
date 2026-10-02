@@ -1,51 +1,60 @@
-# Cycle procedure (read this first in every two-hour run)
+# رویهٔ هر اجرا (Builder، هر دو ساعت)
 
-You start cold each cycle. This file turns the standing task into concrete steps so effort goes into improving the skill, not into re-deriving the process. The standing task is in the original instruction (Persian) and is summarized here.
+هر اجرا از صفر شروع می‌شود و ادامهٔ کار قبلی است. به حافظهٔ چت تکیه نکن؛ **منبع حقیقت Git و فایل‌های داخل مخزن است.** این فایل فقط *مکانیک اجرا* را می‌گوید. هدف و قواعد پروتکل: `MASTER-BRIEF.md`. مسیر، مرحله و اقدام بعدی: `ROADMAP.md`. اگر با این‌ها تناقض دیدی، همان تناقض را اصلاح کن و در RUN-LOG ثبت کن.
 
-**Mission**: maintain `persian-website-builder/`, a decision-and-execution skill for building Persian websites end to end. Success = an agent given "build me a professional Persian site" can understand the need, research, choose architecture, design UX/UI, build, secure, test, deploy and operate, without inventing the method each time.
+**نقش:** تو Builder هستی. گزارش خودت، Red Team داخلی‌ات و سناریوهای توسعه‌ای که خودت دیده‌ای **ممیزی مستقل نیستند** و نباید چنین نامیده شوند.
 
-## Hard rules
+## قواعد سخت
 
-1. **Anti-inflation**: add content only if it reduces errors, improves decisions, raises quality, increases executability, covers a failure mode, or removes ambiguity. Otherwise do not add. If a module needs no change, deepen another or test a new scenario. Never add text only to have output.
-2. **Evidence**: label every non-obvious claim (FACT / BEST PRACTICE / RECOMMENDATION / ASSUMPTION / EXPERIMENTAL). FACT needs a primary source or a reproducible experiment, with date. Add or update IDs in `references/evidence-register.md`.
-3. **Reproduce hazards**: "X breaks in RTL/Persian" claims need a fixture (see E-018). Two of six bidi claims written from memory failed in run 1.
-4. **Mechanical integrity**: run `node meta/tools/lint-skill.mjs` and all tests before and after your edits. Errors must be zero before commit.
-5. **Never invent** vendor behaviour, law, statistics or Persian orthography facts. If a source is unreachable, record that in the register and keep ASSUMPTION.
-6. **Versioning**: SemVer-like `0.MINOR.PATCH`. MINOR = new module/gate/tool/framework or behaviour-changing guidance. PATCH = corrections, evidence refresh, wording. **No bump** for meta-only notes. Keep `metadata.version` in `SKILL.md` equal to the top entry of `meta/CHANGELOG.md` (the linter checks).
-7. Work on the designated git branch; commit with a clear message; push with `git push -u origin <branch>`. Do not open a pull request unless asked.
+1. **فقط یک مسئله با بالاترین ارزش در هر اجرا.** کار نیمه‌تمام ادامه می‌یابد مگر شواهد اولویت بالاتر یا مانع واقعی پیدا شود.
+2. **ضد تورم:** محتوا یا منبع فقط وقتی اضافه شود که خطا را کم کند، تصمیم را بهتر کند، کیفیت یا قابلیت اجرا را بالا ببرد، یک Failure Mode را بپوشاند یا ابهام را کم کند. برای پرکردن عدد یا داشتن خروجی چیزی نساز.
+3. **Evidence:** هر ادعای غیربدیهی برچسب دارد (FACT / BEST PRACTICE / RECOMMENDATION / ASSUMPTION / EXPERIMENTAL). FACT منبع اولیه یا آزمایش تکرارپذیر با تاریخ می‌خواهد. هر ادعای «تأییدشده» به **محتوا و محیط همان نسخه** متصل است؛ تغییر مرتبط یعنی بازآزمایی (`meta/tools/run-tests.mjs --verify`).
+4. **ادعای خطر («X در RTL خراب می‌شود») بدون Fixture بازتولیدکننده ثبت نمی‌شود.**
+5. **نتیجه را درست بخوان:** فقط PASS یعنی گذشته است. `CONDITIONAL` = محدودیت‌ها را در رکورد بیاور؛ `INCOMPLETE`، skipped، unknown و not-applicable صریح ثبت می‌شوند و PASS نیستند. آزمون را برای سبزکردن نتیجه ضعیف یا حذف نکن؛ اگر انتظارش غلط است، دلیل و شواهد اصلاح را ثبت کن.
+6. **هرگز** مصنوع، منبع، قانون، آمار یا رفتار فروشنده را اختراع نکن. منبع در دسترس نبود؟ در رجیستر ثبت کن و ASSUMPTION بگذار.
+7. **حدود اختیار:** بدون دستور صریح مالک: PR، merge، انتشار سایت/بسته، خرید، پیام به اشخاص، پرداخت واقعی، حذف مخرب، تغییر تاریخچهٔ Git، انتخاب مجوز مخزن. تصمیم‌های فنی برگشت‌پذیر با توست. ابهام مسدودکننده را گزارش کن و کار مستقل را ادامه بده.
+8. **داده:** فقط ساختگی. داده‌ی پزشکی واقعی، پرداخت واقعی یا ارسال پیام واقعی هرگز وارد آزمون نمی‌شود.
+9. **تکرار بی‌نتیجه ممنوع:** اگر مانع تکراری است و داده‌ی تازه‌ای نیست، همان تلاش را تکرار نکن؛ علت را ثبت و یک کار مستقل مفید انتخاب کن. اگر کار مفیدی ممکن نیست: گزارش کوتاه BLOCKED یا NO_CHANGE. برای تولید گزارش، commit یا محتوای ساختگی نساز.
+10. **ذخیره یعنی SHA:** موفقیت push بدون بررسی SHA محلی و remote اثبات ذخیره نیست.
 
-## The cycle
+## مراحل
 
-| Step | What to do | Concrete commands / outputs |
+| # | کار | دستور/خروجی |
 |---|---|---|
-| 1 Read | Last entry of `meta/RUN-LOG.md`, `meta/OPEN-QUESTIONS.md` (top), `meta/RED-TEAM.md` (recent), `SKILL.md` §10 maturity table | `git log --oneline | head`; `node meta/tools/lint-skill.mjs --today=$(date +%F)`; `node --test persian-website-builder/scripts/*.test.mjs` |
-| 2 Audit | Look for: missing topics, wrong or outdated advice, contradictions, ambiguity, duplication, overengineering, unexecutable steps, uncovered failure modes, new edge cases. Stale-evidence warnings from the linter are findings | Write findings in the run log |
-| 3 Research | Only what needs new evidence: the NEXT RESEARCH TARGET plus any stale high-volatility claim. Prefer primary sources (docs, specs, law text, own experiments). Parallelize searches | `WebFetch` on primary pages; Node/Playwright experiments |
-| 4 Improve | Edit the skill. Smallest change that removes the problem. Update the register and maturity table | |
-| 5 Challenge | Red Team: pretend a professional team follows the skill literally. Where does it lead to a wrong decision or weak project? Record at least one attack in `meta/RED-TEAM.md` and apply the fix to the skill | |
-| 6 Test | Run the skill on at least one hypothetical project (new scenario or a re-run of an old one with the changed text) and, where possible, execute things (tools, fixtures, browser) rather than reading | Add to `meta/VALIDATION.md` |
-| 7 Simplify | Remove or merge anything unnecessary; shorten; check `SKILL.md` size budget (< 500 lines, < ~5000 tokens) | linter warns on size |
-| 8 Integrate | Cross-references resolve, IDs consistent, tables of contents and routing in `SKILL.md` updated, tests green | linter + tests |
-| 9 Document | `meta/CHANGELOG.md` (what, why, evidence, uncertainty), `meta/RUN-LOG.md` entry (Persian, in the report template) | |
-| 10 Next | Choose the most important open question for the next run; write it at the top of `OPEN-QUESTIONS.md` | |
+| 1 | **وضعیت:** شاخه، HEAD، commitهای جدید، تغییرات ثبت‌نشده، CI. بخوان: MASTER-BRIEF، ROADMAP، این فایل، آخرین RUN-LOG، یافته‌های ممیزی در اختیار، OQ مرتبط. گزارش قبلی را بدون بررسی فایل و Git حقیقت فرض نکن. **نتیجهٔ پایهٔ تست‌های مرتبط را پیش از تغییر ثبت کن.** نتیجهٔ CI فقط اگر دقیقاً مال همان SHA است قابل استفاده است | `git fetch origin && git status && git log --oneline -5`؛ `node meta/tools/lint-skill.mjs`؛ `node meta/tools/run-tests.mjs` |
+| 2 | **هم‌پوشانی:** اگر Builder دیگری روی این مخزن فعال است، کار نوشتنی موازی شروع نکن؛ فقط وضعیت را گزارش کن. HEAD جدید یا تغییر هم‌زمان را نادیده نگیر و کار دیگری را overwrite نکن | `list_sessions` (فقط‌خواندنی) و `git fetch` |
+| 3 | **یک هدف:** (الف) شکست تست، regression یا مشکل اعتبار شواهد؛ (ب) ریسک امنیت، پول یا مجوز مرتبط با کار جاری؛ (پ) مسئلهٔ حل‌نشدهٔ مرحلهٔ فعلی در ROADMAP | |
+| 4 | **قبل از تغییر بنویس:** مشکل چیست، چه شواهدی دارد، چرا اکنون، چه تغییری حلش می‌کند، معیار پذیرش. معیار پذیرش مرحله‌ای که شروع می‌شود قبل از پیاده‌سازی در ROADMAP ثبت شود. تحقیق فقط به اندازهٔ تصمیم جاری و با منبع معتبر | |
+| 5 | **اجرا:** تغییر کافی و درست. اصل معماری را هر اجرا دوباره طراحی نکن؛ تغییر معماری به شاهد شکست، ناسازگاری یا محدودیت اندازه‌گیری‌شده نیاز دارد. رفتار مفید قبلی حفظ شود | شکست را اول با آزمون سرخ بازتولید کن، بعد اصلاح |
+| 6 | **آزمون و سلامت:** آزمون‌های متناسب با تغییر + دو فرمان پایه + regression لازم. با رشد مخزن آزمون‌های تازه را اضافه کن | `node meta/tools/lint-skill.mjs` و `node --test persian-website-builder/scripts/*.test.mjs meta/tools/*.test.mjs`؛ **حکم معتبر را `node meta/tools/run-tests.mjs` می‌دهد** (خروجی خام `node --test` با `# skipped N` و exit 0 موفقیت نیست) |
+| 7 | **Red Team مرتبط:** موردی که تغییر را می‌شکند، شرط سخت را دور می‌زند یا تأیید کاذب تولید می‌کند. تحلیل را از آزمون اجراشده جدا کن. در `meta/RED-TEAM.md` با برچسب «Builder» ثبت کن | |
+| 8 | **شواهد:** دستورها، نتیجه و محدودیت را کنار نسخهٔ آزموده‌شده ثبت کن. ناموفق، skipped و بررسی‌نشده را PASS نخوان | `node meta/tools/run-tests.mjs --write` (گزارش در `meta/evidence/`) |
+| 9 | **commit/push:** diff را مرور کن، فقط فایل‌های مربوط به کار خودت را روی شاخهٔ تعیین‌شده commit و push کن. بعد SHA محلی و remote را بررسی کن. ادامهٔ نیمه‌تمام ایمن را می‌توان با وضعیت WIP ثبت کرد، نه به‌عنوان نتیجهٔ آماده. اگر commit/push ممکن نیست، checkpoint را در فضای ماندگار موجود نگه دار و تفاوتش با مخزن را صریح بگو | `git push -u origin <branch>`؛ `git rev-parse HEAD origin/<branch>` |
+| 10 | **ثبت:** RUN-LOG و ROADMAP: هدف، نتیجه، شواهد، مرحله، مانع، کار نیمه‌تمام و **فقط یک** اقدام بعدی. اگر کار تمام نشد IN_PROGRESS؛ پایان نوبت ≠ پایان مسئله | |
 
-## Choosing what to work on (decision rule)
+## نسخه‌ها
 
-1. A **failing test or lint error** from the previous cycle.
-2. A **stale or contradicted high-volatility claim** (linter warning, or a source you find has changed).
-3. The **top item** in OPEN-QUESTIONS (the NEXT RESEARCH TARGET).
-4. The **weakest module** by the maturity table that has the highest consequence of error (payments, security, money, legal, Persian input).
-5. A **new validation scenario** that exercises a part of the skill not yet walked (see VALIDATION.md coverage list).
-If two items are equal, take the one whose failure would be more expensive for a real project.
+- نسخهٔ Skill: `0.MINOR.PATCH` در `persian-website-builder/SKILL.md` = بالاترین ورودی `meta/CHANGELOG.md` (Linter چک می‌کند). MINOR: ابزار/ماژول/گیت جدید یا تغییر رفتار راهنما و ابزار. PATCH: اصلاح و تازه‌سازی شواهد. فقط یادداشت meta ⇒ بدون تغییر نسخه.
+- `contractVersion` و `resourceVersion` (از مرحلهٔ ۱) **جدا** از نسخهٔ Skill و جدا از هم‌اند.
 
-## Final report format (to the user, in Persian)
+## گزارش پایان اجرا (فارسی ساده و کوتاه)
 
-Skill Version · Research Performed · Audit Findings · Changes · Removed / Simplified · Evidence · Red Team Result · Validation · Remaining Gaps · Next Research Target. Be factual: say what was **not** verified.
+- Branch و HEAD شروع/پایان؛ نتیجهٔ commit و push (SHA محلی و remote)
+- هدف این اجرا و دلیل انتخاب
+- تغییر واقعی، یا علت نبود تغییر
+- تست‌ها: pass / fail / skipped / incomplete
+- شواهد و محدودیت تأیید
+- Red Team و خطر باقی‌مانده
+- وضعیت: DONE / IN_PROGRESS / BLOCKED / NO_CHANGE
+- یک اقدام بعدی با بالاترین ارزش
 
-## Environment notes (learned in run 1)
+همین قالب برای ورودی RUN-LOG استفاده می‌شود.
 
-- `node --test <dir>` does not work as a directory argument in Node 22 here; use the glob `persian-website-builder/scripts/*.test.mjs`.
-- Playwright resolves via `NODE_PATH` through `createRequire`; Chromium is pre-installed (do not run `playwright install`). Browser tests skip (not fail) when unavailable.
-- Some Iranian vendor docs may be unreachable from the sandbox (HTTP 503 seen); note it, do not paper over it.
-- A Persian-capable font in the sandbox is DejaVu Sans only (fine for bidi order, not for typography judgements).
-- Search results include low-quality blogs; downgrade or ignore them (see E-023).
+## یادداشت‌های محیط
+
+- `node --test <dir>` در Node 22 این‌جا با پوشه کار نمی‌کند؛ از glob فایل‌ها استفاده کن. زیر `node --test`، فراخوانی تودرتوی `run()` بی‌صدا اجرا را رد می‌کند؛ `run-tests.mjs` این را مدیریت می‌کند (`NODE_TEST_CONTEXT`).
+- Playwright از راه `NODE_PATH` و `createRequire` پیدا می‌شود؛ Chromium از پیش نصب است (`playwright install` نزن). آزمون‌های مرورگر در نبود مرورگر skip می‌شوند و `run-tests.mjs` آن را INCOMPLETE می‌کند.
+- در این sandbox خروجی HTTPS از پراکسی می‌گذرد و `fetch` خود Node متغیرهای پراکسی را نمی‌خواند؛ هدف‌های بیرونی ممکن است با «CANNOT RUN» (exit 2) تمام شوند: این شکست صریح است، نه موفقیت.
+- مستندات برخی فروشندگان ایرانی از sandbox ممکن است در دسترس نباشد (۵۰۳ دیده شد)؛ ثبت کن، جایگزین نکن.
+- فونت فارسی sandbox فقط DejaVu Sans است (برای ترتیب bidi کافی؛ برای قضاوت تایپوگرافی نه). نتایج جست‌وجوی وب شامل وبلاگ‌های کم‌اعتبار است؛ تنزل بده یا نادیده بگیر.
+- تنظیم زمان‌بندی و وظیفهٔ تکرارشونده با مالک است؛ Builder موازی دوم ایجاد نکن.

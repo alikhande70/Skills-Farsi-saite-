@@ -3,7 +3,7 @@ name: persian-website-builder
 description: Design, build, audit and launch Persian (Farsi, RTL) websites and web apps end to end, from a vague idea to deployment, monitoring and maintenance (ساخت وب‌سایت فارسی). Use when asked to create or improve any site for Persian-speaking or Iranian users (shop, company site, blog, SaaS, marketplace, education, booking, dashboard), or when the task involves Persian/RTL UX, Jalali dates, toman/rial prices, Iranian payment gateways, Iranian phone or national-ID inputs, Persian SEO or search, bidi bugs, or hosting and reachability from Iran. Supplies decision frameworks, quality gates, an evidence register and tested Persian utilities. Framework-agnostic.
 compatibility: Helper scripts need Node.js >= 18 (no packages). page-audit.mjs and bidi-order.mjs also need Playwright with Chromium installed in the project.
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Persian website builder
@@ -88,13 +88,15 @@ D-BUILD (build / adopt / compose) · D-RENDER (static/SSG/SSR/SPA/hybrid) · D-F
 
 ```
 node --test scripts/*.test.mjs        # verify the helpers
-node scripts/rtl-smells.mjs <dir>     # RTL/Iran-reachability smells (exit 1 on errors)
+node scripts/rtl-smells.mjs <dir>     # RTL/Iran-reachability smells
 node scripts/contrast.mjs "#767676" "#fff"   # WCAG contrast ratio
 node scripts/security-smoke.mjs <staging-url>        # headers, cookies, exposed paths, CORS (authorized targets only)
 node scripts/page-audit.mjs <file|url>        # browser audit; BLOCKS foreign hosts (I-2); needs Playwright
 node scripts/bidi-order.mjs <file> [selector] # visual character order of mixed Persian/Latin/number strings
 ```
 `templates/starter-lite/` is an RTL-correct, token-based page that passes the audit (placeholders still to be replaced).
+**Reading tool results (all check tools share `scripts/verdict.mjs`):** every check ends as pass/fail/warn/info/incomplete/skipped/not-applicable and the run as **PASS | CONDITIONAL | FAIL | INCOMPLETE**. Exit codes: 0 PASS or CONDITIONAL, 1 FAIL, 2 could not run, 3 INCOMPLETE. **Only PASS is a pass.** CONDITIONAL means warnings or scope limits (listed in the output: copy them into the gate record); INCOMPLETE means a check could not run (e.g. a probe timed out) and nothing is verified; an empty directory or an HTTP target never yields PASS. Test suites follow the same rule: a skipped test is missing evidence (the repository's `meta/tools/run-tests.mjs` reports it as INCOMPLETE).
+
 Only `page-audit.mjs` and `bidi-order.mjs` need Playwright (install it in the project); the rest have no dependencies. `scripts/persian-utils.mjs` exports: `toLatinDigits`, `toPersianDigits`, `normalizePersian`, `searchKey`, `isValidNationalCode`, `normalizeIranMobile`, `isValidPostalCodeFormat`, `isValidSheba`, `isValidCardNumber`, `formatMoney`, `slugifyFa`. Copy or import them; they are format/normalization helpers only (a valid format never proves identity or existence).
 
 ## 8. Project docs the agent should produce (proportional to the profile)
@@ -107,7 +109,7 @@ State: what was built and where · evidence of verification (commands, results, 
 
 ## 10. Module maturity (be honest about depth)
 
-Scale: **M1** drafted from researched sources, not yet scenario-tested · **M2** scenario-tested and red-teamed · **M3** used on a real project with feedback. Open issues are tracked in `meta/OPEN-QUESTIONS.md` of the skill's repository.
+Scale: **M1** drafted from researched sources, not yet scenario-tested · **M2** scenario-tested and red-teamed **by the Builder (not an independent audit)** · **M3** independently evaluated or used on a real project with feedback. Open issues are tracked in `meta/OPEN-QUESTIONS.md` of the skill's repository.
 
 | Module | Maturity | Weakest point |
 |---|---|---|

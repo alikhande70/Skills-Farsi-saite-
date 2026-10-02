@@ -185,5 +185,5 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   for (const e of errors) console.log(`ERROR  ${e}`);
   for (const w of warnings) console.log(`WARN   ${w}`);
   console.log(`\n${errors.length} error(s), ${warnings.length} warning(s)  ·  ${JSON.stringify(stats)}`);
-  process.exit(errors.length ? 1 : 0);
+  process.exit(errors.some((e) => /^SKILL\.md missing/.test(e)) ? 2 : errors.length ? 1 : 0); // 2 = could not run, 1 = problems found
 }

@@ -35,7 +35,9 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
     console.error('Usage: node contrast.mjs <fg> <bg>');
     process.exit(2);
   }
-  const ratio = contrastRatio(fg, bg);
-  console.log(`${ratio.toFixed(2)}:1`, JSON.stringify(verdict(ratio)));
-  process.exit(verdict(ratio).text_AA ? 0 : 1);
+  try {
+    const ratio = contrastRatio(fg, bg);
+    console.log(`${ratio.toFixed(2)}:1`, JSON.stringify(verdict(ratio)));
+    process.exit(verdict(ratio).text_AA ? 0 : 1); // 1 = below AA for normal text; an unreadable color is exit 2 (could not run)
+  } catch (e) { console.error(`CANNOT RUN: ${e.message}. Nothing was verified.`); process.exit(2); }
 }

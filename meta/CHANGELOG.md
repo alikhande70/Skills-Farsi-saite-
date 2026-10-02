@@ -2,6 +2,20 @@
 
 Versioning: `0.MINOR.PATCH`. MINOR = new module, gate, tool or behaviour-changing guidance. PATCH = corrections, evidence refresh, wording. Meta-only notes do not bump the version. `persian-website-builder/SKILL.md` `metadata.version` must equal the top entry (checked by `meta/tools/lint-skill.mjs`).
 
+## v0.2.0 — 2026-10-02 (run 2: trustworthy results)
+
+**What** (behaviour-changing for the skill's tools, hence MINOR):
+- New shared result model `persian-website-builder/scripts/verdict.mjs` (PASS / CONDITIONAL / FAIL / INCOMPLETE; exit codes 0/1/2/3). `security-smoke`, `rtl-smells`, `page-audit` use it and now emit one entry per executed check; `bidi-order` and `contrast` follow the exit-code rules.
+- **Fixed hidden failures** (each reproduced, each with red→green regression tests): `security-smoke` swallowed probe errors and could hang; `rtl-smells` passed an empty directory and crashed (exit 1) on a missing path; `page-audit` could report unmeasured LCP as 0 ms; `bidi-order` and `contrast` used the "problems found" exit code for "could not run".
+- Guidance aligned with the tools: how to read tool results at a gate (quality-gates §6), G-SEC needs PASS on the HTTPS staging URL, launch checklist wording, ai-agent-workflow reporting (pass / fail / skipped / incomplete), SKILL.md tool section; maturity scale clarifies that M2 is Builder-tested, not independent.
+- Meta (no skill behaviour): `meta/tools/run-tests.mjs` (+ tests) separating pass/fail/skipped/todo with content- and environment-bound evidence; `MASTER-BRIEF.md`, `ROADMAP.md`, rewritten `PROCEDURE.md`; Builder labels on validation and red-team logs.
+
+**Why**: the owner's plan makes "tests are trustworthy" stage 0. Run 2 found that the tools meant to protect releases could report success without checking.
+
+**Evidence**: reproduction transcripts and red→green runs in `RUN-LOG.md`; test report with content hash in `meta/evidence/`.
+
+**Uncertain**: CI reproducibility (no workflow existed on the remote); tools still check only what they check (smoke tests, heuristics).
+
 ## v0.1.0 — 2026-10-01/02 (run 1: foundation)
 
 **What**: first complete, linted and tested version of the skill.

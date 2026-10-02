@@ -3,11 +3,14 @@
 // it does not prove a bug. Suppress a line with the comment text `rtl-ignore`.
 //
 // Usage: node rtl-smells.mjs <dir|file> [--json]
-// Exit code: 1 if any finding with severity "error", else 0.
+// Result model (scripts/verdict.mjs): PASS | CONDITIONAL | FAIL | INCOMPLETE.
+// Exit codes: 0 PASS/CONDITIONAL, 1 FAIL (an error-level smell exists), 2 could not run (path unreadable),
+// 3 INCOMPLETE (nothing scannable was found, or a file could not be read). A scan of zero files is never a pass.
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { createLedger, buildReport, renderText, exitCodeFor } from './verdict.mjs';
 
 const EXTS = new Set(['.css', '.scss', '.sass', '.less', '.html', '.htm', '.jsx', '.tsx', '.js', '.ts', '.vue', '.svelte', '.astro', '.mdx']);
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'build', '.next', '.nuxt', '.svelte-kit', 'coverage', '.output']);
@@ -54,38 +57,70 @@ function lineOf(text, index) {
   return text.slice(0, index).split('\n').length;
 }
 
-function* walk(path) {
-  const st = statSync(path);
+export class ScanError extends Error {}
+
+function* walk(path, unreadable) {
+  let st;
+  try { st = statSync(path); } catch (e) { unreadable.push(`${path}: ${e.code ?? e.message}`); return; }
   if (st.isFile()) {
     if (EXTS.has(extname(path))) yield path;
     return;
   }
-  for (const name of readdirSync(path)) {
+  let names;
+  try { names = readdirSync(path); } catch (e) { unreadable.push(`${path}: ${e.code ?? e.message}`); return; }
+  for (const name of names) {
     if (SKIP_DIRS.has(name)) continue;
-    yield* walk(join(path, name));
+    yield* walk(join(path, name), unreadable);
   }
 }
 
+/** Findings only (kept for callers that do not need the verdict). */
 export function scanPath(root) {
-  const all = [];
-  for (const file of walk(root)) all.push(...scanText(readFileSync(file, 'utf8'), file));
-  return all;
+  return scanReport(root).checks.filter((c) => c.file).map((c) => ({ file: c.file, line: c.line, id: c.id, severity: c.status === 'fail' ? 'error' : c.status, msg: c.msg }));
+}
+
+export function scanReport(root) {
+  try { statSync(root); } catch (e) { throw new ScanError(`cannot read ${root}: ${e.code ?? e.message}`); }
+  const L = createLedger();
+  const unreadable = [];
+  const found = [];
+  let files = 0;
+  let htmlTags = 0;
+  for (const file of walk(root, unreadable)) {
+    let text;
+    try { text = readFileSync(file, 'utf8'); } catch (e) { unreadable.push(`${file}: ${e.code ?? e.message}`); continue; }
+    files += 1;
+    if (HTML_TAG.test(text)) htmlTags += 1;
+    found.push(...scanText(text, file));
+  }
+  for (const u of unreadable) L.add('RTL-READ', 'incomplete', 'could not read a file or directory', { detail: u });
+  if (files === 0) L.add('RTL-SCAN', 'incomplete', `no scannable files under ${root} (looked for: ${[...EXTS].join(' ')})`);
+  for (const f of found) L.add(f.id, f.severity === 'error' ? 'fail' : f.severity, f.msg, { file: f.file, line: f.line, detail: `${f.file}:${f.line}` });
+  if (files > 0) {
+    const ids = [...RULES.map((r) => r.id), 'RTL011', 'RTL012'];
+    for (const id of ids) {
+      if (found.some((f) => f.id === id)) continue;
+      const htmlOnly = id === 'RTL011' || id === 'RTL012';
+      if (htmlOnly && htmlTags === 0) L.add(id, 'not-applicable', 'no <html> tag in the scanned files');
+      else L.add(id, 'pass', `no occurrence in ${files} file(s)`);
+    }
+  }
+  return buildReport('rtl-smells', { target: root, filesScanned: files }, L.checks);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const args = process.argv.slice(2);
-  const asJson = args.includes('--json');
   const target = args.find((a) => !a.startsWith('--'));
   if (!target) {
     console.error('Usage: node rtl-smells.mjs <dir|file> [--json]');
     process.exit(2);
   }
-  const findings = scanPath(target);
-  if (asJson) console.log(JSON.stringify(findings, null, 2));
-  else {
-    for (const f of findings) console.log(`${f.file}:${f.line}  ${f.severity.toUpperCase().padEnd(5)} ${f.id}  ${f.msg}`);
-    const by = (s) => findings.filter((f) => f.severity === s).length;
-    console.log(`\n${findings.length} finding(s): ${by('error')} error, ${by('warn')} warn, ${by('info')} info`);
+  try {
+    const report = scanReport(target);
+    console.log(args.includes('--json') ? JSON.stringify(report, null, 2) : `${renderText(report)}\nFiles scanned: ${report.filesScanned}`);
+    process.exit(exitCodeFor(report.verdict));
+  } catch (e) {
+    console.error(`CANNOT RUN: ${e.message}. Nothing was verified.`);
+    process.exit(2);
   }
-  process.exit(findings.some((f) => f.severity === 'error') ? 1 : 0);
 }
