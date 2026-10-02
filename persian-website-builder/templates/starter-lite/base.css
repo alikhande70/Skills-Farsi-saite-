@@ -1,0 +1,62 @@
+/* Logical properties only. No letter-spacing, no italics for Persian, no physical left/right. */
+
+/* FONT: self-host the font file and VERIFY ITS LICENSE before shipping (E-015).
+   Uncomment after adding the file; keep the fallback stack in tokens.css.
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+*/
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-300);
+  line-height: var(--leading-body);
+  hyphens: none;
+}
+img, svg, video { max-inline-size: 100%; block-size: auto; }
+h1, h2, h3 { line-height: var(--leading-heading); margin-block: var(--space-6) var(--space-3); }
+h1 { font-size: var(--text-700); } h2 { font-size: var(--text-500); } h3 { font-size: var(--text-400); }
+p, ul { margin-block: 0 var(--space-4); max-inline-size: var(--measure); }
+a { color: var(--color-action); text-underline-offset: 0.2em; }
+
+.container { max-inline-size: 70rem; margin-inline: auto; padding-inline: var(--space-4); }
+.skip-link { position: absolute; inset-inline-start: var(--space-4); inset-block-start: -4rem;
+  background: var(--color-text); color: var(--color-surface); padding: var(--space-2) var(--space-4); }
+.skip-link:focus { inset-block-start: var(--space-2); }
+
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+:target, [id] { scroll-margin-block-start: 5rem; } /* sticky header must not hide focus (WCAG 2.4.11) */
+
+.site-header { border-block-end: 1px solid var(--color-border); background: var(--color-surface-alt); }
+.site-header .container { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding-block: var(--space-2); }
+.site-nav ul { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; max-inline-size: none; }
+.site-nav a, .btn { display: inline-flex; align-items: center; justify-content: center;
+  min-block-size: var(--target-min); min-inline-size: var(--target-min); padding-inline: var(--space-4); }
+
+.btn { background: var(--color-action); color: var(--color-on-action); border: 0; border-radius: var(--radius-2);
+  font: inherit; text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--color-action-hover); }
+
+.field { display: grid; gap: var(--space-1); margin-block-end: var(--space-4); max-inline-size: 24rem; }
+.field label { font-weight: 600; }
+.field input, .field textarea { font: inherit; font-size: 1rem; /* >= 16px avoids iOS auto-zoom */
+  padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-2);
+  background: var(--color-surface); color: var(--color-text); min-block-size: var(--target-min); }
+.field .hint { color: var(--color-text-muted); }
+.field .error { color: var(--color-error); }
+/* LTR data fields inside an RTL form: keep digits/latin in LTR, aligned to the reading end */
+.field input[dir="ltr"] { text-align: end; }
+
+.price { white-space: nowrap; font-weight: 600; }
+.band { background: var(--color-surface-alt); padding-block: var(--space-8); }
+.site-footer { padding-block: var(--space-8); color: var(--color-text-muted); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

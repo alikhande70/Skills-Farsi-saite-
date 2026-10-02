@@ -1,0 +1,17 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<style>body{font-family:"DejaVu Sans",Tahoma,sans-serif;font-size:18px;margin:12px;width:336px}.row{margin:4px 0}</style></head><body>
+<!-- Each .row is one reproducible case. data-case ids are used by bidi-order.test.mjs (evidence E-018). -->
+<div class="row" data-case="phone-plain">تماس +98 912 345 6789 بگیرید</div>
+<div class="row" data-case="phone-bdi">تماس <bdi dir="ltr">+98 912 345 6789</bdi> بگیرید</div>
+<div class="row" data-case="phone-local-plain">تماس 0912 345 6789 بگیرید</div>
+<div class="row" data-case="minus-plain">موجودی -۵۰۰ تومان</div>
+<div class="row" data-case="minus-u2212-plain">موجودی −۵۰۰ تومان</div>
+<div class="row" data-case="minus-bdi">موجودی <bdi>-۵۰۰</bdi> تومان</div>
+<div class="row" data-case="minus-intl">موجودی <span id="intl-neg"></span> تومان</div>
+<div class="row" data-case="percent-plain">تخفیف ۲۰٪ برای شما</div>
+<div class="row" data-case="percent-bdi">تخفیف <bdi>۲۰%</bdi> برای شما</div>
+<div class="row" data-case="percent-word">تخفیف ۲۰ درصد برای شما</div>
+<div class="row" data-case="ugc-auto"><span dir="auto">Hello سلام world!</span></div>
+<div class="row" data-case="trailing-english-punct">برند محبوب: Samsung Galaxy S24!</div>
+<script>document.getElementById('intl-neg').textContent = new Intl.NumberFormat('fa').format(-500);</script>
+</body></html>
