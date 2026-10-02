@@ -23,6 +23,7 @@ Columns: **ID · failure · early detection · prevention (where)**.
 | FM-012 | Trust gap (no real identity, unclear policies, payment redirect surprise) | Interviews: hesitation; abandonment at payment | Trust inventory (`ux-content.md` §7); explain payment redirect |
 | FM-013 | Inaccessible patterns exclude users | A11y gate fails; complaints | `accessibility.md` per phase |
 | FM-014 | Unhelpful errors and dead-end empty states | High error/retry rates; support contacts | Copy deck + states at G2 |
+| FM-015 | Result of a submit is not announced: focus is moved before the success/error element exists, or never moves | Keyboard run: after submit `document.activeElement` is `body`; screen reader is silent | Move focus in an effect keyed on the state change (after mount); EC-028; `accessibility.md` |
 
 ## Business failures
 | ID | Failure | Early detection | Prevention |

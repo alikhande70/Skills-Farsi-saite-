@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { runFiles, evaluate, scopeHash, verifyReport, captureEnv, REPORT_SCHEMA, exitCodeFor } from './run-tests.mjs';
+import { runFiles, evaluate, scopeHash, verifyReport, captureEnv, missingPaths, SUITES, REPORT_SCHEMA, exitCodeFor } from './run-tests.mjs';
 
 const CLI = fileURLToPath(new URL('./run-tests.mjs', import.meta.url));
 const dir = () => mkdtempSync(join(tmpdir(), 'run-tests-'));
@@ -119,4 +119,47 @@ test('CLI: an unknown suite is "could not run" (exit 2)', async () => {
   const r = await cli(['--suite=nope']);
   assert.equal(r.code, 2);
   assert.match(r.err, /CANNOT RUN/);
+});
+
+test('scopeHash also ignores build output, runtime data and browser-test artefacts (.next, .data, test-results)', () => {
+  const root = dir();
+  put(root, 'site/app.js', 'code');
+  const h1 = scopeHash(root, ['site']);
+  put(root, 'site/.next/BUILD_ID', 'x'); put(root, 'site/.data/appointments.jsonl', '{}'); put(root, 'site/test-results/a.png', 'png');
+  assert.equal(scopeHash(root, ['site']).contentHash, h1.contentHash);
+  assert.deepEqual(scopeHash(root, ['site']).files.map((f) => f.path), ['site/app.js']);
+});
+
+test('missingPaths lists required paths that do not exist', () => {
+  const root = dir();
+  put(root, 'present/file', 'x');
+  assert.deepEqual(missingPaths(root, ['present', 'absent/node_modules/next']), ['absent/node_modules/next']);
+  assert.deepEqual(missingPaths(root, undefined), []);
+});
+
+test('a suite whose prerequisites are missing is INCOMPLETE and names them, even when every reported test passed', () => {
+  const s = { name: 'site', requires: [], missingPaths: ['sites/x/node_modules/next'], tests: [{ name: 't', status: 'pass' }] };
+  const r = evaluate([s], browserOk);
+  assert.equal(r.verdict, 'INCOMPLETE');
+  assert.match(r.reasons.join(' '), /prerequisite missing: sites\/x\/node_modules\/next/);
+  assert.equal(evaluate([{ ...s, missingPaths: [] }], browserOk).verdict, 'PASS');
+});
+
+test('the clinic suite is registered, needs a browser and installed dependencies, and is bound to the site, the skill and its scenario', () => {
+  const c = SUITES['clinic-p0'];
+  assert.ok(c, 'clinic-p0 must be registered');
+  assert.equal(c.dir, 'sites/clinic-calm/tests');
+  assert.ok(c.requires.includes('browser'));
+  assert.ok(c.requiresPaths.includes('sites/clinic-calm/node_modules/next'));
+  for (const s of ['sites/clinic-calm', 'persian-website-builder', 'corpus/scenarios']) assert.ok(c.scope.includes(s), `scope must include ${s}`);
+});
+
+test('CLI: the clinic suite on a repository without its dependencies is INCOMPLETE (exit 3), never PASS', async () => {
+  const root = dir();
+  put(root, 'sites/clinic-calm/tests/x.test.mjs', "import test from 'node:test'; test('would pass', () => {});");
+  const r = await cli([`--root=${root}`, '--suite=clinic-p0']);
+  assert.equal(r.code, 3, `${r.out}${r.err}`);
+  assert.match(r.out, /prerequisite missing: sites\/clinic-calm\/node_modules\/next/);
+  assert.match(r.out, /VERDICT: INCOMPLETE/);
+  assert.doesNotMatch(r.out, /would pass/, 'tests must not run when their prerequisites are absent');
 });

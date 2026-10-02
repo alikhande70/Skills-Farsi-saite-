@@ -1,0 +1,1125 @@
+{
+  "schema": "test-report/0.1",
+  "generatedAt": "2026-10-02T07:24:15.387Z",
+  "git": {
+    "head": "21218fd01a114611d4912ba8bebe500107303b53",
+    "branch": "ccr-cc47775b-6wxdej",
+    "dirty": true,
+    "dirtyFiles": [
+      "M meta/CHANGELOG.md",
+      " M meta/DESIGN-DECISIONS.md",
+      " M meta/RED-TEAM.md",
+      " M meta/tools/run-tests.mjs",
+      " M meta/tools/run-tests.test.mjs",
+      " M persian-website-builder/SKILL.md",
+      " M persian-website-builder/references/anti-patterns.md",
+      " M persian-website-builder/references/failure-modes.md",
+      " M persian-website-builder/references/security.md",
+      " M persian-website-builder/references/testing-edge-cases.md",
+      "?? corpus/",
+      "?? sites/"
+    ]
+  },
+  "env": {
+    "node": "v22.22.0",
+    "platform": "linux",
+    "arch": "x64",
+    "playwright": "1.56.1",
+    "chromium": "141.0.7390.37",
+    "chromiumError": null
+  },
+  "scope": {
+    "roots": [
+      "corpus/scenarios",
+      "meta/tools",
+      "persian-website-builder",
+      "sites/clinic-calm"
+    ],
+    "contentHash": "36271b27fd949925d934e69bc211deb06bd4927eba9aaa66fd70576a6c0a8093",
+    "files": [
+      {
+        "path": "corpus/scenarios/clinic-luxury-calm.md",
+        "sha256": "5cad40e60d87851b863728cb2c05062e9a09486529f9ee6cc181933d1f297ea0"
+      },
+      {
+        "path": "meta/tools/lint-skill.mjs",
+        "sha256": "365e611399505949a63a9c88abe20c0b4dae53ff013e5ce2093bce7cea508d74"
+      },
+      {
+        "path": "meta/tools/lint-skill.test.mjs",
+        "sha256": "70b4c4479c0befb22100b6283c038ea67efa07b9ae87d6b35338f1eb8fd53d1e"
+      },
+      {
+        "path": "meta/tools/run-tests.mjs",
+        "sha256": "3071e0f9d132aab5e76853fcd8a707530cb2538389ffbcfda9a188cc8566d256"
+      },
+      {
+        "path": "meta/tools/run-tests.test.mjs",
+        "sha256": "cf94480d75c7f790a0700842f6fe591e3222eec4db80056d3d8d3d17a0fe91c8"
+      },
+      {
+        "path": "persian-website-builder/SKILL.md",
+        "sha256": "597abf856653f065c8cd254ae8845474e1beba90564a9bd6cefc7952703130bb"
+      },
+      {
+        "path": "persian-website-builder/references/accessibility.md",
+        "sha256": "7bcd088090582b30031884470151a61462b68527f1a4186a73435e31333dfa64"
+      },
+      {
+        "path": "persian-website-builder/references/ai-agent-workflow.md",
+        "sha256": "99eb8a24bb6fe33046aa1d07413e01e4e4559029556d715b97df5c010bbad038"
+      },
+      {
+        "path": "persian-website-builder/references/anti-patterns.md",
+        "sha256": "c967a6aef7e8d782e727de52250fa027f39b7de6e683343b70969c59292108b3"
+      },
+      {
+        "path": "persian-website-builder/references/architecture-decisions.md",
+        "sha256": "707d5aad63a87c5bba61164d324425d39bc384be431c749d00d126c61542639b"
+      },
+      {
+        "path": "persian-website-builder/references/discovery.md",
+        "sha256": "cfc837d68dd07ad4b7e36277d57fa4a3156aa82eaac14ad2e3fbb85e34b5c1fb"
+      },
+      {
+        "path": "persian-website-builder/references/engineering.md",
+        "sha256": "fa59f01d0da85121dd5f8fd8e37adbc5adf5ccd272378a4cc2bfe87d7f50aa9c"
+      },
+      {
+        "path": "persian-website-builder/references/evidence-register.md",
+        "sha256": "dc91a6d39ebc99c060b8d265050847a8e018ab21accf8fde6d6612af27abcf90"
+      },
+      {
+        "path": "persian-website-builder/references/failure-modes.md",
+        "sha256": "cfe115656d60f8debf99ba5a4be6cf35992391aa0b23c4013830f942858c0e08"
+      },
+      {
+        "path": "persian-website-builder/references/iran-context.md",
+        "sha256": "383576aef59e8be81d5bf3a4cad3fe48e4f63540e678ed18e9d1f0f8ed3ac93a"
+      },
+      {
+        "path": "persian-website-builder/references/ops.md",
+        "sha256": "4054c6a30736cd4842d5112d95cbfc7f8932cdcd971e1a6b5120e77e68980695"
+      },
+      {
+        "path": "persian-website-builder/references/performance.md",
+        "sha256": "c12161f6f5656003fc9636384bd852d08825bde65b35a19d8bd4500051020af8"
+      },
+      {
+        "path": "persian-website-builder/references/persian-ux.md",
+        "sha256": "474e6f79dbbf255769bc00540c6167dc86a515b4ca2bfe42e702d02b603e6f41"
+      },
+      {
+        "path": "persian-website-builder/references/product-ia.md",
+        "sha256": "3cad15d9b5b3ca15a929c0467bc396d7e25807412e3bb4a2012865713dd836dc"
+      },
+      {
+        "path": "persian-website-builder/references/quality-gates.md",
+        "sha256": "73293c8f27873c2e84da05932389d2b29a62c852e29099d88a15c2ba2a170757"
+      },
+      {
+        "path": "persian-website-builder/references/research.md",
+        "sha256": "d7c497b138beffd7bca389991d9633c1d592edd3bbcdb64fde8349a555c4b910"
+      },
+      {
+        "path": "persian-website-builder/references/security.md",
+        "sha256": "bc44376b04fbd0b7d4fdd2aa09463cc1aaac003719ebbe966185a6ccfb30170c"
+      },
+      {
+        "path": "persian-website-builder/references/seo.md",
+        "sha256": "6af6ef508b1758765e25a716506c29d493e9dba62ed09259c7cfd429031b2835"
+      },
+      {
+        "path": "persian-website-builder/references/site-type-playbooks.md",
+        "sha256": "d53600ae7b091d69b5703acd1e6033e5ab074e5bf7b2b00a599a7b5b07264e5d"
+      },
+      {
+        "path": "persian-website-builder/references/testing-edge-cases.md",
+        "sha256": "2efc39e8d9e06d9225545a50c9276ccf55a7a3cddb486abaf43b4ff714baa45b"
+      },
+      {
+        "path": "persian-website-builder/references/ui-design-system.md",
+        "sha256": "8a5e7ac43c2a2ade657f5762d115642e4546e000dfb6d12cc5628a6ee10de750"
+      },
+      {
+        "path": "persian-website-builder/references/ux-content.md",
+        "sha256": "58321e92e8954cbac738fcfc11d13bec456dd0499d70d38a8e99c96c9c9f620e"
+      },
+      {
+        "path": "persian-website-builder/scripts/bidi-order.mjs",
+        "sha256": "8c8de874a87666c32991c6cc5a36eaa5de08cde78c183d21a013b0b6bacfb5b5"
+      },
+      {
+        "path": "persian-website-builder/scripts/bidi-order.test.mjs",
+        "sha256": "f299e3068ca1139121d81e03ead3ba809d299f311676a31546702807c0205fa3"
+      },
+      {
+        "path": "persian-website-builder/scripts/contrast.mjs",
+        "sha256": "fd31c435b1b384cf4809b8122586b72074d34deab38a506af4de44dede39af0d"
+      },
+      {
+        "path": "persian-website-builder/scripts/contrast.test.mjs",
+        "sha256": "1532ab93e9a6797866e67144a9cc0a5eae38be060bb3e7aad87828ca1f8584d3"
+      },
+      {
+        "path": "persian-website-builder/scripts/fixtures/bad.html",
+        "sha256": "b1460e23455aa019f1e0bfc75cd9bb5137fb6d3a3708ede8052300d07323cf1a"
+      },
+      {
+        "path": "persian-website-builder/scripts/fixtures/bidi-hazards.html",
+        "sha256": "35962d2eb8dcf101345171a70e7709d71d7de6f0b2de4d24ec9742a641364753"
+      },
+      {
+        "path": "persian-website-builder/scripts/page-audit.mjs",
+        "sha256": "9c07c8cea2380eeb530c1d5552e092a1e1fc463e5332d3a42f9191c63d56a28b"
+      },
+      {
+        "path": "persian-website-builder/scripts/page-audit.test.mjs",
+        "sha256": "481063060847935c532215ca67f8c45257f613510ec06d38fa491796bab8c724"
+      },
+      {
+        "path": "persian-website-builder/scripts/persian-utils.mjs",
+        "sha256": "1d2546aa56dfd9fb840562d0e599a121aee353285529b252b766d8e69df64b35"
+      },
+      {
+        "path": "persian-website-builder/scripts/persian-utils.test.mjs",
+        "sha256": "24a63a7f21d8817c53540f877c67c3754c0d6349fe1eff26be4c12454c7fab55"
+      },
+      {
+        "path": "persian-website-builder/scripts/platform-facts.test.mjs",
+        "sha256": "be5414986c1ca07a549c75c71ecca3aff748d280fa4eb526feafbb99ae0beb21"
+      },
+      {
+        "path": "persian-website-builder/scripts/rtl-smells.mjs",
+        "sha256": "6b7332b195a4aff722a6fd00fa18979fcb9036edb96fa964d851fe0ca339ba0b"
+      },
+      {
+        "path": "persian-website-builder/scripts/rtl-smells.test.mjs",
+        "sha256": "e15b6684e4b8f6a5476cb29e9add70e8b3991a5322a1d869eb34a01f6845fbe8"
+      },
+      {
+        "path": "persian-website-builder/scripts/security-smoke.mjs",
+        "sha256": "cf936e3114d58484d693d0064a03fb9c8249ef856cf8fb0a6f883d896589b630"
+      },
+      {
+        "path": "persian-website-builder/scripts/security-smoke.test.mjs",
+        "sha256": "865bde64813d3ebb52aa1bf4755ced18a7e8cb2b3b2949fa25d3ebe1f4ce6b88"
+      },
+      {
+        "path": "persian-website-builder/scripts/verdict.mjs",
+        "sha256": "a37187b053cee40679d6bf34fb6a25c3d6ad7ffdd6eed61b32cd25b7ef646760"
+      },
+      {
+        "path": "persian-website-builder/scripts/verdict.test.mjs",
+        "sha256": "c6e64122677d19a1dd1843ea1565273f29551b60c521ab908b0b3a872cda4d86"
+      },
+      {
+        "path": "persian-website-builder/templates/adr.md",
+        "sha256": "1e53b36f26cead3fddf1a0588754ad40eb7f4a359af1d14dab366ff232c8b578"
+      },
+      {
+        "path": "persian-website-builder/templates/launch-checklist.md",
+        "sha256": "9b0e6f94e25cada5b8f431389372ad4593abb8cc6903066aeb7144840ff8a7e0"
+      },
+      {
+        "path": "persian-website-builder/templates/project-brief.md",
+        "sha256": "413efb7ad4feff9ea565dc32b9f72505725ea2aca2c0fbcfa44ff692f42aee20"
+      },
+      {
+        "path": "persian-website-builder/templates/starter-lite/base.css",
+        "sha256": "9f18c96dbe1d9a69f028c954be21b5ac7f2e53a6342ab55254593baa33b8900e"
+      },
+      {
+        "path": "persian-website-builder/templates/starter-lite/index.html",
+        "sha256": "28e302fd8b0d0f04460b1f755f6f75e9531ede5f152660e95db61f0593e9aa78"
+      },
+      {
+        "path": "persian-website-builder/templates/starter-lite/tokens.css",
+        "sha256": "2a92c8e8cf73ddffef546f4ceac354e0a24cd28c0b61c44b538e6c5bdaef72f6"
+      },
+      {
+        "path": "sites/clinic-calm/.gitignore",
+        "sha256": "2e543a2f22f31c8622ae7d51085f2d622b626d15513f4c38ca56dc1477c3b8f9"
+      },
+      {
+        "path": "sites/clinic-calm/.npmrc",
+        "sha256": "0fe3c9edb72fc06f8a147e5dfed2fdd97d35c33c7adb3a4a5c8fc1d8198928e0"
+      },
+      {
+        "path": "sites/clinic-calm/LICENSES.md",
+        "sha256": "ce44516207907cdac27558a5a0dc9eb9e02f68191d851efb176a9f942e18b4ad"
+      },
+      {
+        "path": "sites/clinic-calm/LIMITATIONS.md",
+        "sha256": "11a1f313dbc967d1a02bbad696de5e08db514f93ed6545829ad82c8e841e1165"
+      },
+      {
+        "path": "sites/clinic-calm/README.md",
+        "sha256": "b6f160975a30b16132b09277f1ec413529effaa09060565ff38e373fe6b21729"
+      },
+      {
+        "path": "sites/clinic-calm/app/api/appointments/route.js",
+        "sha256": "23d4092deb630f365820bb11e5610600baa05de2312a78c26cb811477dbd3f1c"
+      },
+      {
+        "path": "sites/clinic-calm/app/appointment/AppointmentForm.jsx",
+        "sha256": "7dd78e7f74183606df7c9deda7425d5a6bc4f6065c103ea4ee93c08966c21269"
+      },
+      {
+        "path": "sites/clinic-calm/app/appointment/page.jsx",
+        "sha256": "d0b264ca8f2416ca64724fd56656467bfa077bf6aed7544cb295b66aa24f0c21"
+      },
+      {
+        "path": "sites/clinic-calm/app/error.jsx",
+        "sha256": "59ce59e25bdab9f1bf6615532fc9a54816f27446036151806887beab1689774a"
+      },
+      {
+        "path": "sites/clinic-calm/app/globals.css",
+        "sha256": "00b13eb521abd2160f4846c993b17aff4e2114eaf43bb9221d0cf070b2834e31"
+      },
+      {
+        "path": "sites/clinic-calm/app/layout.jsx",
+        "sha256": "d7a3e429608e3d17f0cef615241282e2748cc9f80a0336d150d89f532f1cc84d"
+      },
+      {
+        "path": "sites/clinic-calm/app/not-found.jsx",
+        "sha256": "44a0a8dc3ada05ad4af505f282e06b65d6f7816646eac7403dd1c01cd09798f0"
+      },
+      {
+        "path": "sites/clinic-calm/app/page.jsx",
+        "sha256": "1252c66a3d201b52638d7257943acd0b122b46e13a41cd5614273c0e781f0240"
+      },
+      {
+        "path": "sites/clinic-calm/app/robots.js",
+        "sha256": "8481b79c1b0516f2d541798db848ad9dd2fe84e55bf011fca1ce1d2e6b014241"
+      },
+      {
+        "path": "sites/clinic-calm/content/clinic.fa.json",
+        "sha256": "2fe6c8896764f2229a8295f1aeb676f9e5aae65e0f058b3e3f2562c86cf2d9e6"
+      },
+      {
+        "path": "sites/clinic-calm/lib/config.mjs",
+        "sha256": "ea504be51936414c17a1b7832c23b7e75dff0c2c822a10d4125de90ac725cfa5"
+      },
+      {
+        "path": "sites/clinic-calm/lib/days.mjs",
+        "sha256": "61fedde0c863c3fbd9f20822151cd904590fb3457c1aa2ecebcf2b5768fea261"
+      },
+      {
+        "path": "sites/clinic-calm/lib/persian-utils.mjs",
+        "sha256": "1d2546aa56dfd9fb840562d0e599a121aee353285529b252b766d8e69df64b35"
+      },
+      {
+        "path": "sites/clinic-calm/lib/rate-limit.mjs",
+        "sha256": "37e88f42e2e921edcb2a79982ba637cc654f208fedea0f582007da65747a18dc"
+      },
+      {
+        "path": "sites/clinic-calm/lib/ref.mjs",
+        "sha256": "819dc4794fa527d3ed26a0c741af98d61c37eeb20155e8cbc7a952167996c04a"
+      },
+      {
+        "path": "sites/clinic-calm/lib/runtime.mjs",
+        "sha256": "a702924ef6055b0af0d249f1b9ade0e4940dd5db92ec1210ef0204a199a5b9c1"
+      },
+      {
+        "path": "sites/clinic-calm/lib/store.mjs",
+        "sha256": "cf95e4a194bb2a6d84d4147ee7110e0cd401bfa0158d574ba2f6bd234d25dd52"
+      },
+      {
+        "path": "sites/clinic-calm/lib/validate.mjs",
+        "sha256": "28c088463c83d8a1c6b4b82c33b125c93a651409af3bf8fd44cce463aa49ae99"
+      },
+      {
+        "path": "sites/clinic-calm/next.config.mjs",
+        "sha256": "55a13223e83298e93fd5408d3e97df6b43a16a031452181a69ec4eabd1d5f90b"
+      },
+      {
+        "path": "sites/clinic-calm/package-lock.json",
+        "sha256": "9e93a2a32268a792f0cb605940deac12ec57b44c06589c0e1c4d681a7f8f2cd0"
+      },
+      {
+        "path": "sites/clinic-calm/package.json",
+        "sha256": "4d00f0962ec0ba2bd7d1c97264599dce9136a754ce0af180dff8375e1e331a71"
+      },
+      {
+        "path": "sites/clinic-calm/proxy.js",
+        "sha256": "8d9ce610fd593cb43176c6d3e770334f651595746fa0ff8ecf59bc96ed894576"
+      },
+      {
+        "path": "sites/clinic-calm/tests/api.test.mjs",
+        "sha256": "c51767fa09c697fff08b17923c7352ef335f15deb7c4a62e4fbce88ac0e5326f"
+      },
+      {
+        "path": "sites/clinic-calm/tests/audit.test.mjs",
+        "sha256": "82a0a104daff6929a3b56fa18f4de0a517ddac907e12cbd76b7e072e8bc1d382"
+      },
+      {
+        "path": "sites/clinic-calm/tests/e2e.test.mjs",
+        "sha256": "f1e82acf44d75aad99180ef673981eba5014c0203c65e886ae69358d1489f76d"
+      },
+      {
+        "path": "sites/clinic-calm/tests/helpers/server.mjs",
+        "sha256": "8b77ce6c6a80201fca694abd86d02c4c4a4b764d55e928289693ebbb946e3841"
+      },
+      {
+        "path": "sites/clinic-calm/tests/lib.test.mjs",
+        "sha256": "95e7181fcac872e6ff919f91891704bcb75ca38bc2d12ea9cb032aa52772244a"
+      }
+    ]
+  },
+  "suites": [
+    {
+      "name": "skill-scripts",
+      "dir": "persian-website-builder/scripts",
+      "requires": [
+        "browser"
+      ],
+      "missingPaths": [],
+      "files": [
+        "persian-website-builder/scripts/bidi-order.test.mjs",
+        "persian-website-builder/scripts/contrast.test.mjs",
+        "persian-website-builder/scripts/page-audit.test.mjs",
+        "persian-website-builder/scripts/persian-utils.test.mjs",
+        "persian-website-builder/scripts/platform-facts.test.mjs",
+        "persian-website-builder/scripts/rtl-smells.test.mjs",
+        "persian-website-builder/scripts/security-smoke.test.mjs",
+        "persian-website-builder/scripts/verdict.test.mjs"
+      ],
+      "tests": [
+        {
+          "file": "persian-website-builder/scripts/bidi-order.test.mjs",
+          "name": "E-018: bidi behaviour of phone numbers, signs, percent, dir=auto",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/bidi-order.test.mjs",
+          "name": "REGRESSION: a missing file is \"could not run\" (exit 2)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/bidi-order.test.mjs",
+          "name": "REGRESSION: a selector that matches nothing is INCOMPLETE (exit 3), not silent success",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/contrast.test.mjs",
+          "name": "black on white is 21:1",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/contrast.test.mjs",
+          "name": "#767676 on white is the well-known AA boundary (~4.54:1)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/contrast.test.mjs",
+          "name": "#777777 on white fails AA for normal text but passes large text",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/contrast.test.mjs",
+          "name": "order of arguments does not matter",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/contrast.test.mjs",
+          "name": "short hex expands; invalid input throws",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/contrast.test.mjs",
+          "name": "REGRESSION: an unreadable color is exit 2 (could not run), distinct from exit 1 (below AA)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "starter-lite passes the audit (no errors) when placeholders are allowed",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "starter-lite is flagged as placeholder content until real content replaces it (AP-007)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "a deliberately broken page triggers every automatable check",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "REGRESSION: a page with nothing to paint yields an INCOMPLETE lab-metric check, not LCP 0 ms",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "starter-lite verdict is CONDITIONAL, and the skipped placeholder check is listed as a limit",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "--allow-foreign is recorded as a skipped foreign-host test (limit), never as a pass",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/page-audit.test.mjs",
+          "name": "page-audit report records executed passes as well as problems",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "digits: both Persian and Arabic-Indic map to Latin",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "NFKC alone is NOT enough (documents why normalizePersian exists)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "normalizePersian: yeh/kaf/digits/harakat/kashida/ZWNJ",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "searchKey: ZWNJ variants match; spaced variant is a known limitation",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "national code: valid, invalid checksum, repeated digits, wrong length, Persian digits",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "national code: leading zero must survive (string, not number)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "mobile: accepted spellings normalize to the same value",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "mobile: rejects landlines, short, long, non-9 prefix, empty",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "postal code: format only",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "sheba: registry-style sample passes, tampering fails, prefix optional, Persian digits ok",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "card number: Luhn on 16 digits",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "money: rial storage, toman display, digits policy",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/persian-utils.test.mjs",
+          "name": "slug: Persian, mixed, punctuation, digits, ZWNJ",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/platform-facts.test.mjs",
+          "name": "E-010: fa-IR defaults to the Persian calendar and Extended Arabic-Indic digits",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/platform-facts.test.mjs",
+          "name": "E-012: IRR currency formatting injects an LRM and puts the word first; toman is not an Intl currency",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/platform-facts.test.mjs",
+          "name": "E-013: Asia/Tehran DST ended after summer 2022",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/platform-facts.test.mjs",
+          "name": "E-014: ICU Persian leap years 1380-1450 follow the 33-year rule; boundaries; week info",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/platform-facts.test.mjs",
+          "name": "E-016/E-017: Persian plural categories and list formatting quirks",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "physical CSS is flagged, logical CSS is not",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "left:auto and similar resets are not flagged as offsets",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "tailwind physical utilities flagged, logical ones are not",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "letter-spacing: non-zero flagged, zero/normal not",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "html lang/dir checks",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "third-party hosts flagged",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "rtl-ignore suppresses a line",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "line numbers are 1-based",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "REGRESSION: an empty directory is INCOMPLETE (exit 3), not a clean pass",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "REGRESSION: a directory with only unscannable file types is INCOMPLETE",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "REGRESSION: a missing path is \"could not run\" (exit 2), distinct from \"violations found\" (exit 1)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "clean source scanned -> PASS (exit 0); warnings only -> CONDITIONAL (exit 0); errors -> FAIL (exit 1)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/rtl-smells.test.mjs",
+          "name": "JSON report states how many files were scanned",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "a deliberately weak server is flagged",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "a hardened server has no errors and no warnings (HTTP, so HSTS/Secure are skipped)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "CSP in report-only mode is reported as info, not as missing",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "REGRESSION: probe connections destroyed -> INCOMPLETE and exit 3, never a success",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "REGRESSION: probe answers 5xx -> INCOMPLETE (cannot confirm the path is not exposed)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "REGRESSION: probe never answers -> tool finishes within the timeout bound, INCOMPLETE",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "REGRESSION: unreachable target -> exit 2 (could not run), not a success",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "REGRESSION: only the CORS probe fails -> INCOMPLETE naming SEC-010 only",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "hardened server over plain HTTP is CONDITIONAL with an explicit limit, not PASS",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "404/403 on probes are a pass for exposure checks (no false INCOMPLETE)",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "FAIL outranks INCOMPLETE: a real exposure plus failing probes is reported FAIL, exit 1",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/security-smoke.test.mjs",
+          "name": "JSON report records every executed check, including passes, with counts and verdict",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "PASS needs positive evidence and no warnings, skips or incompletes",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "no checks executed is INCOMPLETE, never PASS",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "incomplete and unknown checks make the whole run INCOMPLETE even when everything else passed",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "skipped-by-scope and warnings give CONDITIONAL, with the limits listed",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "FAIL outranks INCOMPLETE, which outranks CONDITIONAL",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "exit codes: PASS/CONDITIONAL 0, FAIL 1, INCOMPLETE 3",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "unknown status is rejected loudly",
+          "status": "pass"
+        },
+        {
+          "file": "persian-website-builder/scripts/verdict.test.mjs",
+          "name": "text rendering never claims success for INCOMPLETE and shows limits",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "name": "meta-tools",
+      "dir": "meta/tools",
+      "requires": [],
+      "missingPaths": [],
+      "files": [
+        "meta/tools/lint-skill.test.mjs",
+        "meta/tools/run-tests.test.mjs"
+      ],
+      "tests": [
+        {
+          "file": "meta/tools/lint-skill.test.mjs",
+          "name": "the real skill has no lint errors",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/lint-skill.test.mjs",
+          "name": "detects orphan references, undefined IDs, missing files and stale section refs",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/lint-skill.test.mjs",
+          "name": "rejects invalid frontmatter: name mismatch, uppercase, long description, angle brackets",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "runFiles separates pass, skip (option and in-body), todo, fail and a file that does not load",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "verdicts: all pass is PASS; skipped/todo/cancelled/empty are INCOMPLETE; fail wins",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "a suite that requires a browser is INCOMPLETE without one, even if nothing was reported as skipped",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "exit codes: PASS/VERIFIED 0, FAIL 1, INCOMPLETE/STALE 3, anything else 2",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "scopeHash is stable, order-independent, content-sensitive and ignores node_modules/evidence",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "verifyReport: unchanged content+environment is VERIFIED; a modified, added or removed file is STALE and named",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "verifyReport: an environment change makes a PASS stale; a stored FAIL stays FAIL",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "CLI --verify: exit 0 for a verified PASS, exit 3 and a STALE message after content changes",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "CLI: an unknown suite is \"could not run\" (exit 2)",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "scopeHash also ignores build output, runtime data and browser-test artefacts (.next, .data, test-results)",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "missingPaths lists required paths that do not exist",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "a suite whose prerequisites are missing is INCOMPLETE and names them, even when every reported test passed",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "the clinic suite is registered, needs a browser and installed dependencies, and is bound to the site, the skill and its scenario",
+          "status": "pass"
+        },
+        {
+          "file": "meta/tools/run-tests.test.mjs",
+          "name": "CLI: the clinic suite on a repository without its dependencies is INCOMPLETE (exit 3), never PASS",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "name": "clinic-p0",
+      "dir": "sites/clinic-calm/tests",
+      "requires": [
+        "browser"
+      ],
+      "missingPaths": [],
+      "files": [
+        "sites/clinic-calm/tests/api.test.mjs",
+        "sites/clinic-calm/tests/audit.test.mjs",
+        "sites/clinic-calm/tests/e2e.test.mjs",
+        "sites/clinic-calm/tests/lib.test.mjs"
+      ],
+      "tests": [
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "success: 201 with an unguessable reference, normalized record on disk, no PII in the response, no-store",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "idempotency: the same key and payload replays (200, same ref, one record); another payload on the same key is 409",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "request hygiene: missing/invalid key, wrong content type, bad JSON, oversized body, non-object body",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "validation: 422 with a stable code per field, and every code has a Persian message",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "honeypot: a filled hidden field is rejected and nothing is stored",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "transient failure: 503 + Retry-After and nothing stored; the retry with the SAME key succeeds exactly once",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "permanent failure and unexpected exception: JSON error, no stack trace, no internals, cause only in the server log",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "HARDENING: the fault hook is inert when CLINIC_TEST_FAULTS is not set",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "slow backend still completes",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "concurrency: 25 simultaneous requests with one key create exactly one record",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "rate limit per mobile (limit 2 in a dedicated server): 3rd new request is 429 with Retry-After; replays and other numbers are unaffected",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "rate limit per client address (limit 3 in a dedicated server): the 4th request from one address is 429",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "client address: without a header the socket address is the key (Next fills x-forwarded-for); KNOWN LIMITATION: a client-sent header is trusted, so the limit can be bypassed without a trusted proxy",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "durability: a restarted server with the same data directory still replays a stored request",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "headers: security headers on pages and API, per-request CSP nonce without unsafe-*, no X-Powered-By",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "other methods and unknown routes: 405 without data, 404 page in Persian",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/api.test.mjs",
+          "name": "privacy: logs carry a masked mobile and never the full number or the name",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "page-audit / (foreign hosts blocked, 320/360/768 px): no failures, nothing incomplete, only the known canonical warning",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "page-audit /appointment (foreign hosts blocked, 320/360/768 px): no failures, nothing incomplete, only the known canonical warning",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "lab performance under a Lighthouse-style mobile throttle (EXPERIMENTAL profile): LCP <= 2500 ms and CLS <= 0.1 on both pages",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "security-smoke: no failure, warning or incomplete probe; CONDITIONAL only because HTTPS-only controls are not evaluable over plain HTTP",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "rtl-smells on the application source: PASS (no physical CSS, no foreign hosts, lang/dir present)",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "design: every text/background pair meets WCAG AA, every control boundary and the focus ring meet 3:1",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "copy: Persian punctuation, Persian digits in prose, ZWNJ in common verbs, no placeholder text, no unqualified medical claims",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "copy: the sample status is stated on every page and the emergency number is present in the FAQ",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "licences: the font is the pinned OFL package, its licence text hash and version match LICENSES.md and the lockfile",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "dependencies: exact pins, install scripts disabled, lockfile v3 with integrity for every package, nothing outside the reference set",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/audit.test.mjs",
+          "name": "assets: no images, no third-party files in the repository part of the site; the font comes only from the pinned package",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "main path: home -> call to action -> form -> success with a reference; stored normalized; no console or CSP errors",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "\"another request\" resets the form and uses a NEW idempotency key (second record, not a replay)",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "validation error: Persian summary is announced and focused, every field is explained, nothing typed is lost, fixing it succeeds",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "server error then retry: input is kept, the retry button re-sends the SAME key, exactly one record results",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "lost connection then retry: network-error state, input kept, retry succeeds once the connection is back",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "double click on submit stores one request",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "rate limited: a Persian message without a retry button; input kept",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "keyboard only: every control is reachable in reading order and the form can be submitted without a mouse",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "RTL and mobile: lang/dir, no horizontal overflow at 320 and 360 px on both pages, Persian digits in the day list",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "the web font is self-hosted and loaded; every request stays on the origin",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "reduced motion: the entrance animation is switched off",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/e2e.test.mjs",
+          "name": "without JavaScript: the home page is fully readable; the form cannot be submitted and no personal data reaches the URL",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "copy of persian-utils is byte-identical to the skill file (drift guard)",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "days: next 10 days, Friday never offered, Jalali labels, stored value is a Gregorian date",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "days: the Tehran date, not the UTC date, decides \"today\" (00:30 Tehran is still 21:00 UTC the day before)",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "validate: a valid request is normalized (Persian digits, Arabic yeh/kaf, +98 form)",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "validate: names accept Persian, Kurdish letters, Latin and ZWNJ; reject digits, symbols, one letter",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "validate: every field reports a stable error code",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "validate: non-string and hostile inputs do not throw and are rejected",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "validate: bidi controls are stripped from name and note (spoofing), emoji are kept in the note",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "ref: pattern holds and 20,000 references do not collide",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "store: create, replay with the same key, conflict when the same key carries another payload",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "store: simultaneous submissions with one key create exactly one record",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "store: persists to disk and a new instance sees the data; a torn last line does not break startup",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "store: a write failure throws StoreError and leaves NO record indexed (no phantom success on retry)",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "store: recent-count by mobile respects the time window",
+          "status": "pass"
+        },
+        {
+          "file": "sites/clinic-calm/tests/lib.test.mjs",
+          "name": "rate limiter: blocks after the limit, reports Retry-After, recovers after the window",
+          "status": "pass"
+        }
+      ]
+    }
+  ],
+  "verdict": "PASS",
+  "counts": {
+    "total": 139,
+    "pass": 139,
+    "fail": 0,
+    "skipped": 0,
+    "todo": 0,
+    "cancelled": 0
+  },
+  "reasons": []
+}

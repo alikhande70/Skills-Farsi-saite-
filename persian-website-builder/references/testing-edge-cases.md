@@ -78,6 +78,8 @@ Use it when writing acceptance criteria and test plans; pick by relevance to the
 | EC-024 | SQL/HTML/script payloads in every field | Inert (see `security.md` §4) | I |
 | EC-025 | Autofill, password manager, SMS OTP autofill | Works; no broken masks | M |
 | EC-026 | Upload: huge, zero-byte, wrong type, double extension | Rejected with clear message | I |
+| EC-027 | Submit before the page is interactive, or with JavaScript disabled (AP-029) | No personal data in the URL; the user is told what to do; nothing is lost silently | I |
+| EC-028 | State change after submit (success, validation error, server error) | Focus moves to the new message **after it exists**; announced once; assert `document.activeElement` | I |
 
 ### Session and permission
 | ID | Case | Expected | L |
@@ -140,6 +142,7 @@ Use it when writing acceptance criteria and test plans; pick by relevance to the
 | EC-081 | Single-use coupon race | Used once | I |
 | EC-082 | Webhook duplicate or out of order | Idempotent; final state correct | I |
 | EC-083 | Migration under traffic | Expand/contract; no downtime/data loss | I |
+| EC-084 | Rate limit with a client-sent address header (`x-forwarded-for: <new value>` on every request), no header, and a proxy that does not set it | The trust rule is written down; a spoofed header does not lift the limit (or the bypass is accepted and recorded); callers are not silently merged into one address | I |
 
 ### Content
 | ID | Case | Expected | L |

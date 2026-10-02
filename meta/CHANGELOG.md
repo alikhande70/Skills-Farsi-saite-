@@ -2,6 +2,17 @@
 
 Versioning: `0.MINOR.PATCH`. MINOR = new module, gate, tool or behaviour-changing guidance. PATCH = corrections, evidence refresh, wording. Meta-only notes do not bump the version. `persian-website-builder/SKILL.md` `metadata.version` must equal the top entry (checked by `meta/tools/lint-skill.mjs`).
 
+## v0.2.1 — 2026-10-02 (run 2: findings from pilot P0)
+
+**What** (library additions from reproduced pilot findings; corrections, hence PATCH):
+- AP-029 (a form that works only after JavaScript loads leaks personal data into the URL on a native GET submit), FM-015 (focus moved before the result element exists), EC-027, EC-028, EC-084 (rate limit with a client-sent address header), and one paragraph in `security.md` §10 about the client-address key. An earlier draft of that paragraph claimed that a missing header merges all callers into one bucket; an experiment showed the opposite (the framework fills it from the socket) and the real weakness is the client-settable header, so the text was corrected before release.
+
+**Why**: building the clinic pilot with the skill alone exposed these; the skill did not warn about them. Each was reproduced with a test in `sites/clinic-calm/tests/` (AP-029/EC-027 and FM-015/EC-028: `e2e.test.mjs`; EC-084: `api.test.mjs` "client address"). The AP-029 and FM-015 bugs existed in the first version of the pilot and were fixed after reproduction.
+
+**Evidence**: pilot suite `clinic-p0` run through `meta/tools/run-tests.mjs`; the entries are Builder findings from one site, not independent validation.
+
+**Uncertain**: whether the same entries would have been found by an agent without the Skill, which is the stage 4 question.
+
 ## v0.2.0 — 2026-10-02 (run 2: trustworthy results)
 
 **What** (behaviour-changing for the skill's tools, hence MINOR):

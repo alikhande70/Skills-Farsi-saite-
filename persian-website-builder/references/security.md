@@ -72,6 +72,7 @@ Lockfiles committed; new dependency passes the admission check (`engineering.md`
 
 Rate limits per IP, per account, per **phone number**, and global on login, OTP send/verify, password reset, search, checkout, coupon use; `429` + `Retry-After`; **hard daily cap on SMS/email spend with an alert** (SMS pumping and card testing are cost attacks); block unserved number ranges; per-device or proof-of-work friction before expensive calls; pagination and size limits; GraphQL depth/cost limits if used. Prefer self-hosted friction over foreign CAPTCHAs (I-2, WCAG 3.3.8).
 **Verify**: a script exceeding each limit gets `429`; the spend alert fires in staging; enumeration of IDs is throttled.
+**Client address**: a per-IP limit is only as good as the address. A header such as `x-forwarded-for` is client-settable unless a trusted proxy **overwrites** it, so a spoofed value gets a fresh bucket (reproduced on a Next.js server, which fills the header from the socket only when the client sent none); behind a proxy that does not set it, all users share the proxy's address. Write down which header is trusted and who sets it (EC-084). Per-account and per-phone limits do not depend on the address; do not rely on the IP limit alone.
 
 ## 11. Misconfiguration (A02)
 

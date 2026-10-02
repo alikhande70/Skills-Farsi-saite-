@@ -14,7 +14,7 @@
 // The commit SHA is informational only (a report is usually written before the commit that contains it): contentHash decides.
 //
 // Usage:
-//   node meta/tools/run-tests.mjs [--suite=skill-scripts|meta-tools|all] [--write[=path]] [--json]
+//   node meta/tools/run-tests.mjs [--suite=skill-scripts|meta-tools|clinic-p0|all] [--write[=path]] [--json]
 //   node meta/tools/run-tests.mjs --verify=meta/evidence/tests-all.json
 //   (--root=<dir> points the tool at another repository root; used by this tool's own tests)
 // Exit codes: 0 PASS (or verified PASS), 1 FAIL, 2 could not run, 3 INCOMPLETE or STALE.
@@ -28,13 +28,28 @@ import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const REPORT_SCHEMA = 'test-report/0.1';
-const SKIP_DIRS = new Set(['node_modules', '.git', 'evidence']);
+// Never part of the hashed scope: dependencies (bound by the lockfile instead), VCS data, stored evidence, and
+// regenerated output (build, runtime data, browser-test artefacts) that changes on every run.
+const SKIP_DIRS = new Set(['node_modules', '.git', 'evidence', '.next', '.data', 'test-results']);
 
 /** Suites known to this repository. `scope` = directories whose exact content the evidence is bound to. */
 export const SUITES = {
   'skill-scripts': { dir: 'persian-website-builder/scripts', scope: ['persian-website-builder'], requires: ['browser'] },
   'meta-tools': { dir: 'meta/tools', scope: ['meta/tools', 'persian-website-builder'], requires: [] },
+  // Pilot P0: builds and starts the real production server, drives Chromium, and applies the skill's own tools to it.
+  // Dependencies are not hashed (node_modules is skipped); the lockfile in the scope pins them.
+  'clinic-p0': {
+    dir: 'sites/clinic-calm/tests',
+    scope: ['sites/clinic-calm', 'persian-website-builder', 'corpus/scenarios'],
+    requires: ['browser'],
+    requiresPaths: ['sites/clinic-calm/node_modules/next', 'sites/clinic-calm/node_modules/vazirmatn'],
+  },
 };
+
+/** Required paths that do not exist under root (a suite with a missing prerequisite is not run and is INCOMPLETE). */
+export function missingPaths(root, required = []) {
+  return (required ?? []).filter((p) => !existsSync(join(root, p)));
+}
 
 const sha256 = (buf) => createHash('sha256').update(buf).digest('hex');
 
@@ -122,6 +137,7 @@ export function evaluate(suites, env) {
   if (counts.cancelled) gaps.push(`${counts.cancelled} test(s) cancelled`);
   for (const su of suites) {
     if (su.tests.length === 0) gaps.push(`suite "${su.name}" contains no tests`);
+    for (const p of su.missingPaths ?? []) gaps.push(`suite "${su.name}": prerequisite missing: ${p} (install dependencies first)`);
     if (su.requires?.includes('browser') && !env?.chromium) gaps.push(`suite "${su.name}" requires a browser but none could be launched (${env?.chromiumError ?? 'unknown reason'})`);
   }
   if (counts.total === 0) gaps.push('no tests were executed');
@@ -138,8 +154,10 @@ export async function buildTestReport({ root, suiteNames, timeoutMs }) {
     if (!def) throw new Error(`unknown suite "${name}" (known: ${Object.keys(SUITES).join(', ')})`);
     const dir = join(root, def.dir);
     const files = existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.test.mjs')).sort().map((f) => join(dir, f)) : [];
-    const tests = files.length ? await runFiles(files, { timeoutMs }) : [];
-    suites.push({ name, dir: def.dir, requires: def.requires, files: files.map((f) => relative(root, f).split('\\').join('/')), tests: tests.map((t) => ({ ...t, file: t.file ? relative(root, t.file).split('\\').join('/') : null })) });
+    const missing = missingPaths(root, def.requiresPaths);
+    // Do not run tests whose prerequisites are absent: their failures would describe the environment, not the code.
+    const tests = files.length && missing.length === 0 ? await runFiles(files, { timeoutMs }) : [];
+    suites.push({ name, dir: def.dir, requires: def.requires, missingPaths: missing, files: files.map((f) => relative(root, f).split('\\').join('/')), tests: tests.map((t) => ({ ...t, file: t.file ? relative(root, t.file).split('\\').join('/') : null })) });
     def.scope.forEach((s) => scope.add(s));
   }
   const scopeRoots = [...scope].sort();
