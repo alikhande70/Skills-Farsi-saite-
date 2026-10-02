@@ -2,6 +2,16 @@
 
 Versioning: `0.MINOR.PATCH`. MINOR = new module, gate, tool or behaviour-changing guidance. PATCH = corrections, evidence refresh, wording. Meta-only notes do not bump the version. `persian-website-builder/SKILL.md` `metadata.version` must equal the top entry (checked by `meta/tools/lint-skill.mjs`).
 
+## v0.2.2 — 2026-10-02 (run 2: a failing budget in a fresh clone)
+
+**What** (PATCH, library correction): FM-055 (font preload hint and `@font-face` URL differ, so the font is downloaded twice) and a clause in `performance.md` §4 item 8 (verify the hint is used).
+
+**Why**: the pilot's lab-LCP test failed once in a fresh clone (2512 ms against a 2500 ms budget) although it passed in the working tree. I did not call it a flake and did not touch the budget: 10 runs showed the home page at 2260–2308 ms (8% headroom), and the network log showed the 109 KB variable font fetched twice, because the preload hint was percent-encoded (`%5Bwght%5D`) and the `@font-face` URL was not. With the hint off the font is fetched once and the same 10 runs give 1716–1752 ms. A regression test (`e2e.test.mjs`, one request per font file) was red with the hint on and green with it off.
+
+**Evidence**: `sites/clinic-calm/tests/e2e.test.mjs` (web font test); distributions measured in `RUN-LOG.md`. Lab numbers are EXPERIMENTAL (throttle profile, one sandbox); the duplicate download is a FACT about this Next.js version (16.3.8) and file name.
+
+**Uncertain**: whether other frameworks encode the hint the same way; the finding is stated about the mismatch, not about one framework.
+
 ## v0.2.1 — 2026-10-02 (run 2: findings from pilot P0)
 
 **What** (library additions from reproduced pilot findings; corrections, hence PATCH):

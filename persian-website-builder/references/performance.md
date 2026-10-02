@@ -45,7 +45,7 @@ A budget with no CI check is a wish: add a lab check (Lighthouse-style CI or equ
 5. **JavaScript weight**: remove dependencies (AP-002), route-level splitting, lazy-load below-the-fold widgets, tree-shaking, modern output targets as your browser matrix allows.
 6. **CSS**: ship only what the page uses; no `@import` chains; avoid giant frameworks for small sites.
 7. **Images**: responsive `srcset`/`sizes`, AVIF/WebP with fallback, correct dimensions, lazy-load below the fold, compress; video: poster + `preload="none"` unless it is the hero.
-8. **Fonts**: self-hosted, subset, WOFF2, one variable font where it reduces files, preload only above-the-fold files, `font-display` strategy chosen with CLS in mind (`persian-ux.md` §2).
+8. **Fonts**: self-hosted, subset, WOFF2, one variable font where it reduces files, preload only above-the-fold files **and check that the hint is actually used: one network request per font file (FM-055)**, `font-display` strategy chosen with CLS in mind (`persian-ux.md` §2).
 9. **Caching**: hashed assets `Cache-Control: public, max-age=31536000, immutable`; HTML short TTL or revalidation; API caching headers intentional; purge strategy documented. A service worker only with a stated purpose and an update strategy (otherwise it creates stale-content bugs).
 10. **Third parties**: each has an owner, a budget, and a removal date; load after interaction/idle; never in the critical path (I-2).
 

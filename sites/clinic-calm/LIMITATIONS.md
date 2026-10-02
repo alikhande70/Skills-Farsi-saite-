@@ -28,7 +28,7 @@ Read this before treating anything here as evidence. This is **pilot P0**: a fic
 | Images | None. Licence for any stock photo could not be proven, so none was used | The "Luxury" side of Luxury/Calm rests on type, spacing, colour and restraint only |
 | Browsers | Chromium (Playwright 1.56.1, Chromium 141) only. No Firefox, no WebKit, no real phone, no screen reader | OQ-05, OQ-06 |
 | Accessibility | Automated structure checks and a keyboard-order test; no screen-reader test, no manual audit | WCAG conformance is **not** claimed |
-| Performance | Lab numbers from a throttled Chromium run in one sandbox (EXPERIMENTAL profile in the Skill); no field data | The budget test guards against regression, it does not prove real-user speed |
+| Performance | Lab numbers from a throttled Chromium run in one sandbox (EXPERIMENTAL profile in the Skill); no field data. Home page lab LCP 1716–1752 ms in 10 runs against the 2500 ms budget (median 1736); the LCP is the text repaint when the web font arrives. The font preload hint is off on purpose (it caused a double download, FM-055) | The budget test guards against regression, it does not prove real-user speed. A busier machine can add hundreds of milliseconds: the first version of the page failed once at 2512 ms in a fresh clone |
 | Dependencies | Exact pins and a lockfile with integrity hashes; transitive licences not inventoried; no `npm audit` result is claimed | See `LICENSES.md` |
 
 ## Where the claims come from

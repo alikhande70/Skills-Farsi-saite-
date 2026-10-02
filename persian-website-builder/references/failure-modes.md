@@ -61,6 +61,7 @@ Columns: **ID · failure · early detection · prevention (where)**.
 | FM-052 | Font swap shifts layout or text is invisible | CLS in lab; visual diff with web font blocked | `persian-ux.md` §2; `performance.md` |
 | FM-053 | Heavy JS/hydration on low-end Android | INP/long tasks in 4× CPU profile | Budgets; island architecture |
 | FM-054 | N+1 and unindexed queries under load | Slow query log; load test | `engineering.md` §4 |
+| FM-055 | Font hint and `@font-face` use different URLs (percent-encoded `[ ]`, spaces, query strings, `crossorigin` mismatch), so the same font is downloaded twice | Lab network log lists the font file twice; font bytes transferred ≈ 2× the file; LCP lands at the font-swap time | File names without special characters; E2E assertion of one request per font file; if the hint cannot match, drop the hint |
 
 ## Maintenance failures
 | ID | Failure | Early detection | Prevention |

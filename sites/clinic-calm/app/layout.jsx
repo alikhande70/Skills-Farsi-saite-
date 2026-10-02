@@ -9,6 +9,9 @@ const vazirmatn = localFont({
   src: '../node_modules/vazirmatn/fonts/webfonts/Vazirmatn[wght].woff2',
   weight: '100 900',
   display: 'swap',
+  // No preload hint: the file name contains brackets, so the hint is percent-encoded (%5Bwght%5D) while the @font-face URL is
+  // not, and the browser then downloads the same 109 KB twice (measured, see tests/e2e.test.mjs). The CSS request is the only one.
+  preload: false,
   variable: '--font-vazirmatn',
   adjustFontFallback: false, // the Arial-based fallback metrics Next generates say nothing about Persian fallback fonts
 });

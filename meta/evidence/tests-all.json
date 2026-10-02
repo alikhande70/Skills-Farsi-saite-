@@ -1,23 +1,19 @@
 {
   "schema": "test-report/0.1",
-  "generatedAt": "2026-10-02T07:24:15.387Z",
+  "generatedAt": "2026-10-02T07:31:46.397Z",
   "git": {
-    "head": "21218fd01a114611d4912ba8bebe500107303b53",
+    "head": "20ce33ea58f85207d76117182312f0e0f38de153",
     "branch": "ccr-cc47775b-6wxdej",
     "dirty": true,
     "dirtyFiles": [
       "M meta/CHANGELOG.md",
-      " M meta/DESIGN-DECISIONS.md",
       " M meta/RED-TEAM.md",
-      " M meta/tools/run-tests.mjs",
-      " M meta/tools/run-tests.test.mjs",
       " M persian-website-builder/SKILL.md",
-      " M persian-website-builder/references/anti-patterns.md",
       " M persian-website-builder/references/failure-modes.md",
-      " M persian-website-builder/references/security.md",
-      " M persian-website-builder/references/testing-edge-cases.md",
-      "?? corpus/",
-      "?? sites/"
+      " M persian-website-builder/references/performance.md",
+      " M sites/clinic-calm/LIMITATIONS.md",
+      " M sites/clinic-calm/app/layout.jsx",
+      " M sites/clinic-calm/tests/e2e.test.mjs"
     ]
   },
   "env": {
@@ -35,7 +31,7 @@
       "persian-website-builder",
       "sites/clinic-calm"
     ],
-    "contentHash": "36271b27fd949925d934e69bc211deb06bd4927eba9aaa66fd70576a6c0a8093",
+    "contentHash": "f1d26673a452d730aae775cd3feb648762acfceb7df29a17f5e05cf0b8058c8d",
     "files": [
       {
         "path": "corpus/scenarios/clinic-luxury-calm.md",
@@ -59,7 +55,7 @@
       },
       {
         "path": "persian-website-builder/SKILL.md",
-        "sha256": "597abf856653f065c8cd254ae8845474e1beba90564a9bd6cefc7952703130bb"
+        "sha256": "121788bc52404721c20aa858b6f1d3b200c902a35098f226b943b2bdf4e77869"
       },
       {
         "path": "persian-website-builder/references/accessibility.md",
@@ -91,7 +87,7 @@
       },
       {
         "path": "persian-website-builder/references/failure-modes.md",
-        "sha256": "cfe115656d60f8debf99ba5a4be6cf35992391aa0b23c4013830f942858c0e08"
+        "sha256": "6a0489b79a97f1439d656dd3aea27c3a06728884ab3cb3dad967ce345d3b758f"
       },
       {
         "path": "persian-website-builder/references/iran-context.md",
@@ -103,7 +99,7 @@
       },
       {
         "path": "persian-website-builder/references/performance.md",
-        "sha256": "c12161f6f5656003fc9636384bd852d08825bde65b35a19d8bd4500051020af8"
+        "sha256": "c010b91d446f1076378a986ab7390dbfcc72abb9af37c0129f6e7ff236ba807f"
       },
       {
         "path": "persian-website-builder/references/persian-ux.md",
@@ -251,7 +247,7 @@
       },
       {
         "path": "sites/clinic-calm/LIMITATIONS.md",
-        "sha256": "11a1f313dbc967d1a02bbad696de5e08db514f93ed6545829ad82c8e841e1165"
+        "sha256": "87d8e37bda80b6462a0967e81360d4b4b39b3f7007e07533b990f0dd8de729a5"
       },
       {
         "path": "sites/clinic-calm/README.md",
@@ -279,7 +275,7 @@
       },
       {
         "path": "sites/clinic-calm/app/layout.jsx",
-        "sha256": "d7a3e429608e3d17f0cef615241282e2748cc9f80a0336d150d89f532f1cc84d"
+        "sha256": "ef11b41a185efe026be368f3a6e81fa7c2f74c2f28ce97099c1e65fe76e97e83"
       },
       {
         "path": "sites/clinic-calm/app/not-found.jsx",
@@ -355,7 +351,7 @@
       },
       {
         "path": "sites/clinic-calm/tests/e2e.test.mjs",
-        "sha256": "f1e82acf44d75aad99180ef673981eba5014c0203c65e886ae69358d1489f76d"
+        "sha256": "9474474f37e7a39f29cabb2df52d0cdc71d68cd578290fb920500710e823f562"
       },
       {
         "path": "sites/clinic-calm/tests/helpers/server.mjs",

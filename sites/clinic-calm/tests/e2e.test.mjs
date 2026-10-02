@@ -215,12 +215,17 @@ test('the web font is self-hosted and loaded; every request stays on the origin'
   const ctx = await browser.newContext({ viewport: { width: 360, height: 800 } });
   const page = await ctx.newPage();
   const hosts = new Set();
-  page.on('request', (r) => hosts.add(new URL(r.url()).host));
+  const fontRequests = [];
+  page.on('request', (r) => { hosts.add(new URL(r.url()).host); if (/\.woff2?$/.test(new URL(r.url()).pathname)) fontRequests.push(decodeURIComponent(r.url())); });
   await page.goto(`${srv.url}/`);
   await page.waitForLoadState('networkidle');
   const loaded = await page.evaluate(async () => { await document.fonts.ready; return [...document.fonts].filter((f) => f.status === 'loaded').length; });
   assert.ok(loaded >= 1, 'no web font loaded');
   assert.deepEqual([...hosts], [new URL(srv.url).host]);
+  // REGRESSION: with a preload hint the bracketed file name was requested as ...%5Bwght%5D... by the hint and as ...[wght]... by
+  // the @font-face rule, so the same 109 KB was downloaded twice (222 KB) and the lab LCP sat 8% under its budget.
+  assert.equal(fontRequests.length, new Set(fontRequests).size, `a font file was requested more than once: ${fontRequests.join(' | ')}`);
+  assert.equal(fontRequests.length, 1, `expected exactly one font download, got ${fontRequests.length}`);
   await ctx.close();
 });
 

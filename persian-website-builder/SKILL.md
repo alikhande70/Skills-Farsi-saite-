@@ -3,7 +3,7 @@ name: persian-website-builder
 description: Design, build, audit and launch Persian (Farsi, RTL) websites and web apps end to end, from a vague idea to deployment, monitoring and maintenance (ساخت وب‌سایت فارسی). Use when asked to create or improve any site for Persian-speaking or Iranian users (shop, company site, blog, SaaS, marketplace, education, booking, dashboard), or when the task involves Persian/RTL UX, Jalali dates, toman/rial prices, Iranian payment gateways, Iranian phone or national-ID inputs, Persian SEO or search, bidi bugs, or hosting and reachability from Iran. Supplies decision frameworks, quality gates, an evidence register and tested Persian utilities. Framework-agnostic.
 compatibility: Helper scripts need Node.js >= 18 (no packages). page-audit.mjs and bidi-order.mjs also need Playwright with Chromium installed in the project.
 metadata:
-  version: "0.2.1"
+  version: "0.2.2"
 ---
 
 # Persian website builder
