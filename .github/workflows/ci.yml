@@ -1,0 +1,48 @@
+# Reproduces the reference environment of the tests on a machine other than the Builder's sandbox.
+# The job is green only when the runner's verdict is PASS: FAIL, INCOMPLETE (skipped test, missing browser or
+# dependencies) and STALE all fail it (exit codes 1 and 3), so a green check cannot hide missing evidence.
+# Builder-written workflow: not an independent audit. Actions are pinned by tag, not by commit SHA (see meta/OPEN-QUESTIONS.md OQ-23).
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.0
+
+      - name: Browser for the tests (Playwright version of the reference environment)
+        run: |
+          npm install --global playwright@1.56.1
+          playwright install --with-deps chromium
+          echo "NODE_PATH=$(npm root --global)" >> "$GITHUB_ENV"
+
+      - name: Install the pilot's locked dependencies
+        working-directory: sites/clinic-calm
+        run: npm ci
+
+      - name: Skill integrity
+        run: node meta/tools/lint-skill.mjs
+
+      - name: Authoritative test verdict
+        run: node meta/tools/run-tests.mjs --write=ci-report.json
+
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tests-report
+          path: ci-report.json
+          if-no-files-found: warn
